@@ -488,7 +488,7 @@ Transform:
   m_GameObject: {fileID: 226180625}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.00044, y: -0.15419, z: -10}
+  m_LocalPosition: {x: -0.02956, y: -0.18419, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -810,7 +810,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCombat
   damage: 1
   attackPoint: {fileID: 1826446840}
-  weaponRange: 0.8
+  weaponRange: 1.2
   knockbackForce: 5
   stunTime: 0.3
   playerLayer:
@@ -1733,7 +1733,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.00044, y: -0.15419, z: -10}
+  m_LocalPosition: {x: -0.02956, y: -0.18419, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2040,7 +2040,7 @@ Transform:
   m_GameObject: {fileID: 587468881}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.03, y: -0.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

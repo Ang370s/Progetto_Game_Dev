@@ -6,7 +6,7 @@ public class EnemyCombat : MonoBehaviour
 {
     public int damage = 1; // Damage dealt to the player
     public Transform attackPoint; // Point from which the attack is made
-    public float weaponRange = 0.8f; // Range of the weapon
+    public float weaponRange = 1.2f; // Range of the weapon
     public float knockbackForce = 5.0f; // Force applied to the player when hit
     public float stunTime = 0.3f; // Time the player is stunned after being hit
     public LayerMask playerLayer; // Layer mask to identify the player
