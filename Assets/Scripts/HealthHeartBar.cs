@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class HealthHeartBar : MonoBehaviour
 {
-    public GameObject heartPrefab;
-    public PlayerHealth playerHealth;
-    List<HealthHeart> hearts = new List<HealthHeart>();
+    public GameObject heartPrefab; // Prefab del cuore
+    public PlayerHealth playerHealth; // Riferimento allo script della salute del giocatore
+    List<HealthHeart> hearts = new List<HealthHeart>(); // Lista dei cuori attuali
 
+    // Start is called before the first frame update
     private void Start()
     {
         // Calcoliamo quanti cuori servono (es. 6 hp / 2 = 3 cuori)
@@ -20,13 +21,17 @@ public class HealthHeartBar : MonoBehaviour
         DrawHearts();
     }
 
+    // Update is called once per frame
     public void DrawHearts()
     {
+        // Se non ci sono cuori, non facciamo nulla
         if (hearts.Count == 0) return;
 
-        float healthPerHeart = playerHealth.maxHealth / hearts.Count;
-        float currentHealth = playerHealth.currentHealth;
-        foreach(HealthHeart heart in hearts)
+        float healthPerHeart = playerHealth.maxHealth / hearts.Count; // Es. 6 hp / 3 cuori = 2 hp per cuore
+        float currentHealth = playerHealth.currentHealth; // Salute attuale del giocatore
+
+        // Cicliamo tutti i cuori e li coloriamo in base alla salute attuale
+        foreach (HealthHeart heart in hearts)
         {
             if(currentHealth >= healthPerHeart)
             {
@@ -49,6 +54,7 @@ public class HealthHeartBar : MonoBehaviour
         // Prima puliamo i cuori vecchi se ce ne sono
         ClearHearts();
 
+        // Creiamo i nuovi cuori vuoti
         for (int i = 0; i < numberOfHearts; i++)
         {
             GameObject newHeart = Instantiate(heartPrefab);
@@ -65,6 +71,7 @@ public class HealthHeartBar : MonoBehaviour
         }
     }
 
+    // Rimuove tutti i cuori esistenti
     public void ClearHearts()
     {
         foreach(Transform t in transform)

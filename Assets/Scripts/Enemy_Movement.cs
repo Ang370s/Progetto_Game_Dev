@@ -5,9 +5,9 @@ using UnityEngine;
 public class Enemy_Movement : MonoBehaviour
 {
     public float speed = 2.5f; // Speed of the enemy
-    public float attackRange = 1.0f; // Range at which the enemy can attack
-    public float attackCooldown = 2.0f; // Cooldown time between attacks in seconds
-    public float PlayerDetectRange = 5.0f; // Range at which the enemy can detect the player
+    public float attackRange = 1.2f; // Range at which the enemy can attack
+    public float attackCooldown = 1.0f; // Cooldown time between attacks in seconds
+    public float PlayerDetectRange = 3.0f; // Range at which the enemy can detect the player
     public Transform detectionPoint; // Point from which to detect the player
     public LayerMask playerLayer; // Layer mask to identify the player
 
@@ -90,7 +90,7 @@ public class Enemy_Movement : MonoBehaviour
             }
 
             // If the player is outside attack range, switch to Chasing state
-            else if (Vector2.Distance(transform.position, player.position) > attackRange)
+            else if (Vector2.Distance(transform.position, player.position) > attackRange && enemyState != EnemyState.Attacking)
             {
                 ChangeState(EnemyState.Chasing); // Change to Chasing state
             }

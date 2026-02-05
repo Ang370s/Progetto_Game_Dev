@@ -5,17 +5,20 @@ using UnityEngine.UI;
 
 public class HealthHeart : MonoBehaviour
 {
-    public Sprite fullHeart, halfHeart, emptyHeart;
-    Image heartImage;
+    public Sprite fullHeart, halfHeart, emptyHeart; // Sprites for different heart states
+    Image heartImage; // Reference to the Image component
 
+    // Awake is called when the script instance is being loaded
     private void Awake()
     {
-        heartImage = GetComponent<Image>();
+        heartImage = GetComponent<Image>(); // Get the Image component attached to this GameObject
     }
 
+    // Method to set the heart image based on the heart status
     public void SetHeartImage(HeartStaus status)
     {
-        switch(status)
+        // Change the sprite based on the heart status
+        switch (status)
         {
             case HeartStaus.Empty:
                 heartImage.sprite = emptyHeart;
@@ -31,6 +34,7 @@ public class HealthHeart : MonoBehaviour
 
 }
 
+// Enum to represent the status of a heart
 public enum HeartStaus
 {
     Empty = 0,
