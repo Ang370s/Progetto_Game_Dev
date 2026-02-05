@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 151020ccbbcee654db86c25fc391ff96
+guid: 848fe1d7c1a14a242826ea8e337c6d1c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1827894805620461780
-    second: Life_UI_001_0
+      213: 8810251072136554324
+    second: heart_normal_blink_full_0
   - first:
-      213: 4174362816848876923
-    second: Life_UI_001_1
+      213: 4995701382301808972
+    second: heart_normal_blink_full_1
   - first:
-      213: -3590725735588959877
-    second: Life_UI_001_2
+      213: 5562549212956654513
+    second: heart_normal_blink_full_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -119,67 +119,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Life_UI_001_0
+      name: heart_normal_blink_full_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 421
-        height: 353
+        x: 3
+        y: 3
+        width: 10
+        height: 9
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4d01acf14acfd5910800000000000000
-      internalID: 1827894805620461780
+      spriteID: 45724b0ebac444a70800000000000000
+      internalID: 8810251072136554324
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Life_UI_001_1
+      name: heart_normal_blink_full_1
       rect:
         serializedVersion: 2
-        x: 553
-        y: 0
-        width: 421
-        height: 353
+        x: 19
+        y: 3
+        width: 10
+        height: 9
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b7550ed7dd05ee930800000000000000
-      internalID: 4174362816848876923
+      spriteID: c49f60850fb445540800000000000000
+      internalID: 4995701382301808972
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Life_UI_001_2
+      name: heart_normal_blink_full_2
       rect:
         serializedVersion: 2
-        x: 1082
-        y: 0
-        width: 420
-        height: 353
+        x: 35
+        y: 3
+        width: 10
+        height: 9
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b79ed5cc7fd2b2ec0800000000000000
-      internalID: -3590725735588959877
+      spriteID: 1bbf8eb9905223d40800000000000000
+      internalID: 5562549212956654513
       vertices: []
       indices: 
       edges: []
@@ -188,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 02dccfe61e956c141ae4eb7c61d4def1
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -196,13 +196,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":422.0,"y":353.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":131.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      Life_UI_001_0: 1827894805620461780
-      Life_UI_001_1: 4174362816848876923
-      Life_UI_001_2: -3590725735588959877
+      heart_normal_blink_full_0: 8810251072136554324
+      heart_normal_blink_full_1: 4995701382301808972
+      heart_normal_blink_full_2: 5562549212956654513
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
