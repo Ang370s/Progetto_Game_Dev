@@ -13,6 +13,18 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isKnockedBack; // Flag to check if the player is currently being knocked back
 
+    public Player_Combat player_Combat; // Reference to the Player_Combat script
+
+    // Update is called once per frame
+    private void Update()
+    {
+        // Check if the player is attacking
+        if (Input.GetMouseButtonDown(0))
+        {
+            player_Combat.Attack(); // Call the Attack method in the Player_Combat script
+        }
+    }
+
     // Facing Update is called 50x frame
     void FixedUpdate()
     {
@@ -64,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(KnockbackCounter(stunTime)); // Avvia la coroutine per gestire la durata del knockback
     }
 
+    // Coroutine per gestire la durata del knockback
     IEnumerator KnockbackCounter(float stunTime)
     {
         yield return new WaitForSeconds(stunTime); // Attendi per 1 secondi

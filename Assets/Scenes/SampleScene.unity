@@ -488,7 +488,7 @@ Transform:
   m_GameObject: {fileID: 226180625}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.02956, y: -0.18419, z: -10}
+  m_LocalPosition: {x: -0.00456, y: -0.14419, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -585,6 +585,37 @@ MonoBehaviour:
       BarrelClipping: 0.25
       Anamorphism: 0
   BlendHint: 0
+--- !u!1 &239214597
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 239214598}
+  m_Layer: 6
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &239214598
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239214597}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.003, y: -0.014, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 587468885}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &260674565
 GameObject:
   m_ObjectHideFlags: 0
@@ -649,7 +680,8 @@ GameObject:
   - component: {fileID: 444628998}
   - component: {fileID: 444628999}
   - component: {fileID: 444629000}
-  m_Layer: 0
+  - component: {fileID: 444629001}
+  m_Layer: 7
   m_Name: Enemy_Orc_Axe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -894,6 +926,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &444629001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444628992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3eab7343537a694f88cbb71a82f5f61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy_Health
+  currentHealth: 3
+  maxHealth: 3
 --- !u!1 &476950255
 GameObject:
   m_ObjectHideFlags: 0
@@ -1733,7 +1779,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.02956, y: -0.18419, z: -10}
+  m_LocalPosition: {x: -0.00456, y: -0.14419, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1901,6 +1947,7 @@ GameObject:
   - component: {fileID: 587468886}
   - component: {fileID: 587468887}
   - component: {fileID: 587468888}
+  - component: {fileID: 587468889}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -2040,10 +2087,11 @@ Transform:
   m_GameObject: {fileID: 587468881}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.03, y: -0.03, z: 0}
+  m_LocalPosition: {x: -0.005, y: 0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 239214598}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &587468886
@@ -2062,6 +2110,7 @@ MonoBehaviour:
   facingDirection: 1
   rb: {fileID: 587468882}
   anim: {fileID: 587468887}
+  player_Combat: {fileID: 587468889}
 --- !u!95 &587468887
 Animator:
   serializedVersion: 7
@@ -2100,6 +2149,26 @@ MonoBehaviour:
   currentHealth: 6
   invulnerableTime: 0.3
   heartBar: {fileID: 581418625}
+--- !u!114 &587468889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587468881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5682195e0482624a972c5bd8e979901, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player_Combat
+  attakPoint: {fileID: 239214598}
+  weaponRange: 1
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  damage: 1
+  anim: {fileID: 587468887}
+  cooldown: 0.8
 --- !u!1 &665448404
 GameObject:
   m_ObjectHideFlags: 0
