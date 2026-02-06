@@ -1,16 +1,22 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy_Health : MonoBehaviour
 {
-    
-    public int currentHealth;
     public int maxHealth = 3;
+    public int currentHealth;
 
+    public float invulnerabilityTime = 0.3f;
+
+    private bool isInvulnerable = false;
     private bool isDead = false;
+
+    private SpriteRenderer sr;
 
     private void Start()
     {
         currentHealth = maxHealth;
+        sr = GetComponent<SpriteRenderer>();
     }
 
     public void ChangeHealth(int amount)
@@ -20,17 +26,35 @@ public class Enemy_Health : MonoBehaviour
             return; // Non fare nulla se il nemico è già morto
         }
 
-        currentHealth += amount;
-        
-        if (currentHealth > maxHealth)
+        if (isInvulnerable && amount < 0)
         {
-            currentHealth = maxHealth;
+            return; // Non fare nulla se il nemico è invulnerabile e si sta cercando di infliggere danno
         }
 
-        else if (currentHealth <= 0)
+        currentHealth += amount;
+
+        if (currentHealth <= 0)
         {
-            isDead = true;
-            Destroy(gameObject); // per ora
+            Die();
         }
+        else
+        {
+            StartCoroutine(Invulnerability());
+        }
+    }
+
+    void Die()
+    {
+        isDead = true;
+        Destroy(gameObject); // per ora
+    }
+
+    IEnumerator Invulnerability()
+    {
+        isInvulnerable = true;
+        sr.color = Color.red;
+        yield return new WaitForSeconds(invulnerabilityTime);
+        sr.color = Color.white;
+        isInvulnerable = false;
     }
 }

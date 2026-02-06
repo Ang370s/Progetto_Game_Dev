@@ -6,7 +6,7 @@ public class PlayerHealth : MonoBehaviour
 {
     public float maxHealth = 6; // Deve essere un multiplo di 2
     public float currentHealth = 6; // Deve essere un multiplo di 2
-    public float invulnerableTime = 0.3f; // Tempo di invulnerabilit� dopo essere stati colpiti
+    public float invulnerableTime = 0.5f; // Tempo di invulnerabilit� dopo essere stati colpiti
 
     private bool isInvulnerable = false; // Flag per controllare lo stato di invulnerabilit�
     private bool isDead = false; // Flag per controllare se il giocatore � morto
@@ -18,7 +18,7 @@ public class PlayerHealth : MonoBehaviour
     // Metodo per cambiare la salute del giocatore
     public void ChangeHealth(int amount)
     {
-        if (isInvulnerable) return;
+        if (isInvulnerable && amount < 0) return; // Se il giocatore è invulnerabile e si sta cercando di infliggere danno, non fare nulla
 
         currentHealth += amount; // Modifica la salute attuale
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); // Limita la salute tra 0 e il massimo
