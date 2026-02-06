@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         // Check if the player is attacking
-        if (Input.GetMouseButtonDown(0))
+        if (!isKnockedBack && Input.GetMouseButtonDown(0))
         {
             player_Combat.Attack(); // Call the Attack method in the Player_Combat script
         }
@@ -52,7 +52,9 @@ public class PlayerMovement : MonoBehaviour
             anim.SetFloat("horizontal", Mathf.Abs(horizontal));
             anim.SetFloat("vertical", Mathf.Abs(vertical));
 
-            // 3. Applica la velocit� al vettore normalizzato/clamped
+            // 3. Applica la velocità al vettore normalizzato/clamped
+            //rb.linearVelocity = moveInput * speed; Forse da usare per un movimento più fluido, ma non funziona bene con il knockback
+
             rb.linearVelocity = moveInput * speed;
 
             //rb.linearVelocity = new Vector2(horizontal * speed, vertical * speed);
@@ -72,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isKnockedBack = true; // Imposta il flag per indicare che il giocatore è in knockback
         Vector2 direction = (transform.position - enemy.position).normalized; // Calcola la direzione del knockback
-        rb.linearVelocity = direction * force; // Applica la forza del knockback al giocatore
+        rb.linearVelocity = direction * force;    // Applica la forza del knockback al giocatore
         StartCoroutine(KnockbackCounter(stunTime)); // Avvia la coroutine per gestire la durata del knockback
     }
 

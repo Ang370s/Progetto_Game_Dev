@@ -6,10 +6,10 @@ public class PlayerHealth : MonoBehaviour
 {
     public float maxHealth = 6; // Deve essere un multiplo di 2
     public float currentHealth = 6; // Deve essere un multiplo di 2
-    public float invulnerableTime = 0.3f; // Tempo di invulnerabilità dopo essere stati colpiti
+    public float invulnerableTime = 0.3f; // Tempo di invulnerabilitï¿½ dopo essere stati colpiti
 
-    private bool isInvulnerable = false; // Flag per controllare lo stato di invulnerabilità
-    private bool isDead = false; // Flag per controllare se il giocatore è morto
+    private bool isInvulnerable = false; // Flag per controllare lo stato di invulnerabilitï¿½
+    private bool isDead = false; // Flag per controllare se il giocatore ï¿½ morto
 
 
     // Trascina l'oggetto con lo script HealthHeartBar qui nell'Inspector
@@ -29,7 +29,7 @@ public class PlayerHealth : MonoBehaviour
             heartBar.DrawHearts();
         }
 
-        // Controlla se la salute è scesa a 0 o meno
+        // Controlla se la salute ï¿½ scesa a 0 o meno
         if (currentHealth <= 0)
         {
             Die(); // Chiama il metodo per gestire la morte del giocatore
@@ -40,14 +40,14 @@ public class PlayerHealth : MonoBehaviour
             //GetComponent<SpriteRenderer>().color = Color.gray; // Feedback visivo
         }
 
-        // Avvia il feedback di danno solo se l'ammontare è negativo (danno subito)
+        // Avvia il feedback di danno solo se l'ammontare ï¿½ negativo (danno subito)
         if (amount < 0)
         {
             StartCoroutine(DamageFeedback()); // Avvia la coroutine per il feedback di danno
         }
     }
 
-    // Coroutine per gestire il feedback di danno e l'invulnerabilità temporanea
+    // Coroutine per gestire il feedback di danno e l'invulnerabilitï¿½ temporanea
     IEnumerator DamageFeedback()
     {
         isInvulnerable = true;
@@ -55,7 +55,7 @@ public class PlayerHealth : MonoBehaviour
         Animator anim = GetComponent<Animator>();
         anim.SetTrigger("Damage");
 
-        yield return new WaitForSeconds(invulnerableTime); // Attendi per il tempo di invulnerabilità
+        yield return new WaitForSeconds(invulnerableTime); // Attendi per il tempo di invulnerabilitï¿½
 
         isInvulnerable = false;
     }
@@ -64,7 +64,7 @@ public class PlayerHealth : MonoBehaviour
     void Die()
     {
 
-        if (isDead) return; // Evita di chiamare più volte la morte
+        if (isDead) return; // Evita di chiamare piï¿½ volte la morte
         isDead = true;
 
         Animator anim = GetComponent<Animator>();
@@ -88,9 +88,9 @@ public class PlayerHealth : MonoBehaviour
         // 3. Opzionale: ferma il corpo fisicamente
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         rb.linearVelocity = Vector2.zero;
-        rb.bodyType = RigidbodyType2D.Static; // Così non cade e non sposta altri oggetti
+        rb.bodyType = RigidbodyType2D.Static; // Cosï¿½ non cade e non sposta altri oggetti
 
-        // 4. Disabilita il collider così i nemici lo ignorano
+        // 4. Disabilita il collider cosï¿½ i nemici lo ignorano
         GetComponent<Collider2D>().enabled = false;
         */
     }

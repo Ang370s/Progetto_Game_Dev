@@ -6,6 +6,8 @@ public class Enemy_Health : MonoBehaviour
     public int currentHealth;
     public int maxHealth = 3;
 
+    private bool isDead = false;
+
     private void Start()
     {
         currentHealth = maxHealth;
@@ -13,6 +15,11 @@ public class Enemy_Health : MonoBehaviour
 
     public void ChangeHealth(int amount)
     {
+        if (isDead)
+        {
+            return; // Non fare nulla se il nemico è già morto
+        }
+
         currentHealth += amount;
         
         if (currentHealth > maxHealth)
@@ -22,6 +29,7 @@ public class Enemy_Health : MonoBehaviour
 
         else if (currentHealth <= 0)
         {
+            isDead = true;
             Destroy(gameObject); // per ora
         }
     }

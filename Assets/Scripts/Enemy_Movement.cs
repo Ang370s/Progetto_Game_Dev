@@ -65,6 +65,7 @@ public class Enemy_Movement : MonoBehaviour
             Flip(); // Call the Flip method to change the facing direction
         }
         Vector2 direction = (player.position - transform.position).normalized; // Calculate the direction towards the player
+        //rb.linearVelocity = direction * speed; // Move towards the player at a speed of 3 units per second
         rb.linearVelocity = direction * speed; // Move towards the player at a speed of 3 units per second
     }
 

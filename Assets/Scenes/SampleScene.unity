@@ -2184,7 +2184,7 @@ MonoBehaviour:
     m_Bits: 128
   damage: 1
   anim: {fileID: 587468887}
-  cooldown: 0.8
+  cooldown: 1.5
 --- !u!1 &665448404
 GameObject:
   m_ObjectHideFlags: 0
