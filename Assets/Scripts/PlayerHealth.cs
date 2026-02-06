@@ -6,7 +6,7 @@ public class PlayerHealth : MonoBehaviour
 {
     public float maxHealth = 6; // Deve essere un multiplo di 2
     public float currentHealth = 6; // Deve essere un multiplo di 2
-    public float invulnerableTime = 0.5f; // Tempo di invulnerabilit� dopo essere stati colpiti
+    public float invulnerableTime = 0.5f; // Tempo di invulnerabilità dopo essere stati colpiti
 
     private bool isInvulnerable = false; // Flag per controllare lo stato di invulnerabilit�
     private bool isDead = false; // Flag per controllare se il giocatore � morto

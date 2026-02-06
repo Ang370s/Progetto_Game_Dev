@@ -23,12 +23,12 @@ public class Enemy_Health : MonoBehaviour
     {
         if (isDead)
         {
-            return; // Non fare nulla se il nemico è già morto
+            return; // Non fare nulla se il nemico ï¿½ giï¿½ morto
         }
 
         if (isInvulnerable && amount < 0)
         {
-            return; // Non fare nulla se il nemico è invulnerabile e si sta cercando di infliggere danno
+            return; // Non fare nulla se il nemico ï¿½ invulnerabile e si sta cercando di infliggere danno
         }
 
         currentHealth += amount;
@@ -45,8 +45,33 @@ public class Enemy_Health : MonoBehaviour
 
     void Die()
     {
+        if (isDead) return;
         isDead = true;
-        Destroy(gameObject); // per ora
+
+        // Animazione
+        Animator anim = GetComponent<Animator>();
+        anim.SetTrigger("Die");
+
+        // Blocca logica
+        Enemy_Movement movement = GetComponent<Enemy_Movement>();
+        if (movement != null) movement.enabled = false;
+
+        Enemy_Knockback knockback = GetComponent<Enemy_Knockback>();
+        if (knockback != null) knockback.enabled = false;
+
+        // Blocca fisica
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.linearVelocity = Vector2.zero;
+        rb.bodyType = RigidbodyType2D.Static;
+
+        // Disabilita collider
+        Collider2D col = GetComponent<Collider2D>();
+        col.enabled = false;
+    }
+
+    public void DestroySelf()
+    {
+        Destroy(gameObject);
     }
 
     IEnumerator Invulnerability()

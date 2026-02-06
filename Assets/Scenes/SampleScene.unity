@@ -939,8 +939,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3eab7343537a694f88cbb71a82f5f61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Health
-  currentHealth: 3
   maxHealth: 3
+  currentHealth: 3
+  invulnerabilityTime: 0.3
 --- !u!114 &444629002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2160,7 +2161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   maxHealth: 6
   currentHealth: 6
-  invulnerableTime: 0.3
+  invulnerableTime: 0.5
   heartBar: {fileID: 581418625}
 --- !u!114 &587468889
 MonoBehaviour:

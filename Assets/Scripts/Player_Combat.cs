@@ -14,7 +14,7 @@ public class Player_Combat : MonoBehaviour
 
     public Animator anim; // Reference to the Animator component
 
-    public float cooldown = 0.8f; // Cooldown time in seconds
+    public float cooldown = 1.5f; // Cooldown time in seconds
 
     private float timer; // Timer to track the cooldown
 
