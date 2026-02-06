@@ -30,25 +30,28 @@ public class Enemy_Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckForPlayer(); // Check if the player is within detection range
-
-        // Update the attack cooldown timer
-        if (attackCooldownTimer > 0)
+        if (enemyState != EnemyState.Knockback)
         {
-            attackCooldownTimer -= Time.deltaTime; // Decrease the timer by the time elapsed since the last frame
-        }
+            CheckForPlayer(); // Check if the player is within detection range
 
-        // Handle behavior based on the current state
-        if (enemyState == EnemyState.Chasing)
-        {
-            Chase(); // Call the Chase method to handle chasing behavior
-        }
+            // Update the attack cooldown timer
+            if (attackCooldownTimer > 0)
+            {
+                attackCooldownTimer -= Time.deltaTime; // Decrease the timer by the time elapsed since the last frame
+            }
 
-        // Handle Attacking state (if needed)
-        else if (enemyState == EnemyState.Attacking)
-        {
-            // Do Attacking behavior here
-            rb.linearVelocity = Vector2.zero; // Stop the enemy's movement
+            // Handle behavior based on the current state
+            if (enemyState == EnemyState.Chasing)
+            {
+                Chase(); // Call the Chase method to handle chasing behavior
+            }
+
+            // Handle Attacking state (if needed)
+            else if (enemyState == EnemyState.Attacking)
+            {
+                // Do Attacking behavior here
+                rb.linearVelocity = Vector2.zero; // Stop the enemy's movement
+            }
         }
     }
 
@@ -103,7 +106,7 @@ public class Enemy_Movement : MonoBehaviour
     }
 
     // Method to change the enemy's state and update animations accordingly
-    void ChangeState(EnemyState newState)
+    public void ChangeState(EnemyState newState)
     {
         // Exit the current animation
         if (enemyState == EnemyState.Idle)
@@ -149,4 +152,5 @@ public enum EnemyState
     Idle,
     Chasing,
     Attacking,
+    Knockback,
 }

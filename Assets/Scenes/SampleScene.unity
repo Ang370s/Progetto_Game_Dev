@@ -681,6 +681,7 @@ GameObject:
   - component: {fileID: 444628999}
   - component: {fileID: 444629000}
   - component: {fileID: 444629001}
+  - component: {fileID: 444629002}
   m_Layer: 7
   m_Name: Enemy_Orc_Axe
   m_TagString: Untagged
@@ -940,6 +941,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Health
   currentHealth: 3
   maxHealth: 3
+--- !u!114 &444629002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444628992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38447ef04caae8d4dbb983d3fd6543ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy_Knockback
 --- !u!1 &476950255
 GameObject:
   m_ObjectHideFlags: 0
@@ -2163,6 +2176,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player_Combat
   attakPoint: {fileID: 239214598}
   weaponRange: 1
+  knockbackForce: 5
+  knockbackTime: 0.15
+  stunTime: 0.3
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128

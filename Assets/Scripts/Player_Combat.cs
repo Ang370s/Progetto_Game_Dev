@@ -6,6 +6,9 @@ public class Player_Combat : MonoBehaviour
 {
     public Transform attakPoint; // Point from which the attack is initiated
     public float weaponRange = 1.0f; // Range of the weapon attack
+    public float knockbackForce = 5f; // Force applied for knockback
+    public float knockbackTime = 0.15f; // Time for which the player is knocked back
+    public float stunTime = 0.3f; // Time for which the player is stunned after being hit
     public LayerMask enemyLayer; // Layer mask to identify enemies
     public int damage = 1; // Damage dealt by the attack
 
@@ -49,6 +52,7 @@ public class Player_Combat : MonoBehaviour
         if (enemies.Length > 0)
         {
             enemies[0].GetComponent<Enemy_Health>().ChangeHealth(-damage);
+            enemies[0].GetComponent<Enemy_Knockback>().Knockback(transform, knockbackForce, knockbackTime, stunTime);
         }
     }
 
