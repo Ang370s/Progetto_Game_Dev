@@ -13,11 +13,11 @@ public class Enemy_Knockback : MonoBehaviour
         enemy_Movement = GetComponent<Enemy_Movement>(); // Get the Enemy_Movement script
     }   
 
-    public void Knockback(Transform playerTransform, float knockbackForce, float knockbackTime, float stunTime)
+    public void Knockback(Transform forceTransform, float knockbackForce, float knockbackTime, float stunTime)
     {
         enemy_Movement.ChangeState(EnemyState.Knockback); // Change the enemy's state to Knockback
         StartCoroutine(StunTimer(knockbackTime, stunTime)); // Start the stun timer coroutine
-        Vector2 direction = (transform.position - playerTransform.position).normalized; // Calcola la direzione del knockback
+        Vector2 direction = (transform.position - forceTransform.position).normalized; // Calcola la direzione del knockback
         rb.linearVelocity = direction * knockbackForce; // Applica la forza di knockback al Rigidbody2D
         Debug.Log("Kncockback applied");
     }
