@@ -997,7 +997,7 @@ GameObject:
   - component: {fileID: 476950259}
   - component: {fileID: 476950258}
   - component: {fileID: 476950257}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Side-And-Down-Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6088,7 +6088,7 @@ GameObject:
   - component: {fileID: 2044002434}
   - component: {fileID: 2044002433}
   - component: {fileID: 2044002432}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Limits
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -8,6 +8,10 @@ public class Arrow : MonoBehaviour
     public float speed = 10f; // Speed at which the arrow will move
 
     public LayerMask enemyLayer; // Layer mask to identify enemies
+    public LayerMask obstacleLayer; // Layer mask to identify obstacles
+
+    public SpriteRenderer sr; // Reference to the SpriteRenderer component of the arrow
+    public Sprite buriedSprite; // Sprite to be used when the arrow is buried in an obstacle
 
     public int damage = 1; // Damage dealt by the arrow
     public float knockbackForce = 5f; // Force applied for knockback
@@ -35,6 +39,21 @@ public class Arrow : MonoBehaviour
             collision.gameObject.GetComponent<Enemy_Health>().ChangeHealth(-damage); // Inflict damage to the enemy by calling the ChangeHealth method with a negative value
             collision.gameObject.GetComponent<Enemy_Knockback>().Knockback(transform, knockbackForce, knockbackTime, stunTime); // Apply knockback to the enemy by calling the Knockback method with appropriate parameters
         }
+
+        else if((obstacleLayer.value & (1 << collision.gameObject.layer)) > 0) // Check if the collided object is in the obstacle layer
+        {
+            AttachToTarget(collision.gameObject.transform); // Attach the arrow to the obstacle by calling the AttachToTarget method with the transform of the collided object
+        }
+    }
+
+    private void AttachToTarget(Transform target)
+    {
+        sr.sprite = buriedSprite; // Change the sprite of the arrow to the buried sprite
+
+        rb.velocity = Vector2.zero; // Stop the arrow's movement by setting its velocity to zero
+        rb.isKinematic = true; // Make the Rigidbody2D kinematic to prevent it from being affected by physics
+
+        transform.SetParent(target); // Set the parent of the arrow to the target, so it will move with the target
     }
 
 }
