@@ -15,15 +15,15 @@ public class PlayerMovement : MonoBehaviour
 
     public Player_Combat player_Combat; // Reference to the Player_Combat script
 
-    // Update is called once per frame
-    private void Update()
+    // Update is called once per frame     TOLTO
+    /*private void Update()
     {
         // Check if the player is attacking
         if (!isKnockedBack && Input.GetMouseButtonDown(0))
         {
             player_Combat.Attack(); // Call the Attack method in the Player_Combat script
         }
-    }
+    }*/
 
     // Facing Update is called 50x frame
     void FixedUpdate()

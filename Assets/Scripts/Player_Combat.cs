@@ -14,19 +14,30 @@ public class Player_Combat : MonoBehaviour
 
     public Animator anim; // Reference to the Animator component
 
-    public float cooldown = 1.5f; // Cooldown time in seconds
+    public float cooldown = 1.2f; // Cooldown time in seconds
 
     private float timer; // Timer to track the cooldown
 
-    // Update is called once per frame
+    // Update is called once per frame. Non deve leggere da input !!!!!!!!!!!!!
+    /*private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Attack();
+        }
+
+        if (timer > 0)
+            timer -= Time.deltaTime;
+    }*/
+
+    // Versione senza input, da chiamare da PlayerMovement
     private void Update()
     {
-        // Decrease the timer if it's greater than 0
         if (timer > 0)
-        {
             timer -= Time.deltaTime;
-        }
     }
+
+
 
     // Method to handle the attack action
     public void Attack()

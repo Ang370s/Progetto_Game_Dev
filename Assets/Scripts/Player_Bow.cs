@@ -4,14 +4,15 @@ public class Player_Bow : MonoBehaviour
 {
     public Transform launchPoint; // Point from which the arrow will be launched
     public GameObject arrowPrefab; // Prefab of the arrow to be instantiated when shooting
+    public Animator anim; // Reference to the Animator component
 
     private Vector2 aimDirection = Vector2.right; // Direction in which the player is aiming
 
-    public float shootCooldown = 0.5f; // Cooldown time between shots in seconds
+    public float shootCooldown = 1.2f; // Cooldown time between shots in seconds
     private float shootTimer; // Timer to track the cooldown between shots
 
-    // Update is called once per frame
-    void Update()
+    // Update is called once per frame. Non deve leggere da input !!!!!!!!!!!!!
+    /*void Update()
     {
         shootTimer -= Time.deltaTime; // Decrease the shoot timer by the time elapsed since the last frame
 
@@ -22,7 +23,46 @@ public class Player_Bow : MonoBehaviour
         {
             Shoot(); // Call the Shoot method to check for shooting input
         }
+    }*/
+
+    // Versione senza input, da chiamare da PlayerWeaponController
+    void Update()
+    {
+        shootTimer -= Time.deltaTime;
+        HandleAiming();
     }
+
+    public void StartShooting()
+    {
+        if (shootTimer > 0)
+            return;
+
+        anim.SetBool("isShooting", true);
+    }
+
+    // Method to handle the shooting action
+    public void Shoot()
+    {
+        // Check if the shoot timer has reached 0 or less, allowing the player to shoot
+        if (shootTimer > 0)
+            return;
+
+        // Instantiate a new arrow at the launch point with no rotation and get the Arrow component from it
+        Arrow arrow = Instantiate(
+            arrowPrefab,
+            launchPoint.position,
+            Quaternion.identity
+        ).GetComponent<Arrow>();
+
+        arrow.direction = aimDirection;
+        shootTimer = shootCooldown;
+    }
+
+    public void FinishShooting()
+    {
+        anim.SetBool("isShooting", false);
+    }
+
 
     public void HandleAiming()
     {
@@ -33,13 +73,6 @@ public class Player_Bow : MonoBehaviour
         {
             aimDirection = new Vector2(horizontal, vertical).normalized; // Update the aim direction based on input and normalize it
         }
-    }
-
-    public void Shoot()
-    {
-        Arrow arrow = Instantiate(arrowPrefab, launchPoint.position, Quaternion.identity).GetComponent<Arrow>(); // Instantiate the arrow prefab at the launch point and get the Arrow component
-        arrow.direction = aimDirection; // Set the direction of the arrow to the current aim direction
-        shootTimer = shootCooldown; // Reset the shoot timer after shooting
     }
 
 }

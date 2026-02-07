@@ -1,10 +1,12 @@
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
     public Rigidbody2D rb; // Reference to the Rigidbody2D component of the arrow
     public Vector2 direction = Vector2.right; // Direction in which the arrow will move
-    public float lifeSpawn = 2; // Time in seconds after which the arrow will be destroyed (2 seconds)
+    //public float lifeSpawn = 2.0f; // Time in seconds after which the arrow will be destroyed (2 seconds)
     public float speed = 10f; // Speed at which the arrow will move
 
     public LayerMask enemyLayer; // Layer mask to identify enemies
@@ -23,7 +25,6 @@ public class Arrow : MonoBehaviour
     {
         rb.linearVelocity = direction * speed; // Set the velocity of the arrow based on the direction and speed
         RotateArrow(); // Call the method to rotate the arrow based on its direction
-        Destroy(gameObject, lifeSpawn); // Schedule the destruction of the arrow after lifeSpawn seconds
     }
 
     private void RotateArrow()
@@ -32,28 +33,69 @@ public class Arrow : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle)); // Rotate the arrow to face the direction of movement
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if((enemyLayer.value & (1 << collision.gameObject.layer)) > 0) // Check if the collided object is in the enemy layer
+        if ((enemyLayer.value & (1 << collision.gameObject.layer)) > 0)
         {
-            collision.gameObject.GetComponent<Enemy_Health>().ChangeHealth(-damage); // Inflict damage to the enemy by calling the ChangeHealth method with a negative value
-            collision.gameObject.GetComponent<Enemy_Knockback>().Knockback(transform, knockbackForce, knockbackTime, stunTime); // Apply knockback to the enemy by calling the Knockback method with appropriate parameters
-        }
+            collision.gameObject.GetComponent<Enemy_Health>()
+                .ChangeHealth(-damage);
 
-        else if((obstacleLayer.value & (1 << collision.gameObject.layer)) > 0) // Check if the collided object is in the obstacle layer
-        {
-            AttachToTarget(collision.gameObject.transform); // Attach the arrow to the obstacle by calling the AttachToTarget method with the transform of the collided object
+            collision.gameObject.GetComponent<Enemy_Knockback>()
+                .Knockback(transform, knockbackForce, knockbackTime, stunTime);
+
+            StickAndDisappear(collision.transform);
         }
+        else if ((obstacleLayer.value & (1 << collision.gameObject.layer)) > 0)
+        {
+            AttachToTarget(collision.transform);
+        }
+    }
+
+    void StickAndDisappear(Transform target)
+    {
+        rb.linearVelocity = Vector2.zero;
+        rb.isKinematic = true;
+
+        GetComponent<Collider2D>().enabled = false;
+
+        transform.SetParent(target);
+
+        StartCoroutine(FadeAndDestroy(0.5f, 0.4f));
     }
 
     private void AttachToTarget(Transform target)
     {
-        sr.sprite = buriedSprite; // Change the sprite of the arrow to the buried sprite
+        if (sr != null && buriedSprite != null)
+            sr.sprite = buriedSprite;
 
-        rb.velocity = Vector2.zero; // Stop the arrow's movement by setting its velocity to zero
-        rb.isKinematic = true; // Make the Rigidbody2D kinematic to prevent it from being affected by physics
+        rb.linearVelocity = Vector2.zero;
+        rb.isKinematic = true;
 
-        transform.SetParent(target); // Set the parent of the arrow to the target, so it will move with the target
+        GetComponent<Collider2D>().enabled = false;
+
+        transform.SetParent(target);
+
+        // 1 secondo ferma, poi fade 3 secondi
+        StartCoroutine(FadeAndDestroy(1f, 3f));
+    }
+
+
+    IEnumerator FadeAndDestroy(float delay, float fadeTime)
+    {
+        yield return new WaitForSeconds(delay);
+
+        float t = 0f;
+        Color c = sr.color;
+
+        while (t < fadeTime)
+        {
+            t += Time.deltaTime;
+            c.a = Mathf.Lerp(1f, 0f, t / fadeTime);
+            sr.color = c;
+            yield return null;
+        }
+
+        Destroy(gameObject);
     }
 
 }
