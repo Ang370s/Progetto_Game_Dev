@@ -2385,6 +2385,7 @@ GameObject:
   - component: {fileID: 587468890}
   - component: {fileID: 587468891}
   - component: {fileID: 587468892}
+  - component: {fileID: 587468893}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -2658,6 +2659,21 @@ MonoBehaviour:
   potionCount: 0
   maxPotions: 5
   healAmount: 2
+--- !u!114 &587468893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587468881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae1744c28558bf744904bb50e9cb1104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
+  killCount: 0
+  killsForPotion: 3
+  potionPrefab: {fileID: 3346423995608668819, guid: cf592304ae27c7b4186922fb6a1ffef0, type: 3}
 --- !u!1 &611400793
 GameObject:
   m_ObjectHideFlags: 0

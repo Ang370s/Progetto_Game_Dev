@@ -48,23 +48,30 @@ public class Enemy_Health : MonoBehaviour
         if (isDead) return;
         isDead = true;
 
-        // Animazione
+        // ---- KILL COUNT + DROP POZIONE ----
+        PlayerStats stats = FindObjectOfType<PlayerStats>();
+        if (stats != null)
+        {
+            stats.AddKill(transform.position);
+        }
+
+        // ---- ANIMAZIONE ----
         Animator anim = GetComponent<Animator>();
         anim.SetTrigger("Die");
 
-        // Blocca logica
+        // ---- BLOCCA LOGICA ----
         Enemy_Movement movement = GetComponent<Enemy_Movement>();
         if (movement != null) movement.enabled = false;
 
         Enemy_Knockback knockback = GetComponent<Enemy_Knockback>();
         if (knockback != null) knockback.enabled = false;
 
-        // Blocca fisica
+        // ---- BLOCCA FISICA ----
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         rb.linearVelocity = Vector2.zero;
         rb.bodyType = RigidbodyType2D.Static;
 
-        // Disabilita collider
+        // ---- DISABILITA COLLIDER ----
         Collider2D col = GetComponent<Collider2D>();
         col.enabled = false;
     }
