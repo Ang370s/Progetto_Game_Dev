@@ -67,6 +67,10 @@ public class PlayerHealth : MonoBehaviour
         if (isDead) return; // Evita di chiamare pi� volte la morte
         isDead = true;
 
+        GameTimer timer = FindObjectOfType<GameTimer>();
+        if (timer != null)
+            timer.StopTimer();
+
         Animator anim = GetComponent<Animator>();
         anim.SetTrigger("Die");
 
