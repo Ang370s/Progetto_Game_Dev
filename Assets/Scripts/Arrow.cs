@@ -11,6 +11,7 @@ public class Arrow : MonoBehaviour
 
     public LayerMask enemyLayer; // Layer mask to identify enemies
     public LayerMask obstacleLayer; // Layer mask to identify obstacles
+    public LayerMask chestLayer; // Layer mask to identify chests
 
     public SpriteRenderer sr; // Reference to the SpriteRenderer component of the arrow
     public Sprite buriedSprite; // Sprite to be used when the arrow is buried in an obstacle
@@ -43,6 +44,11 @@ public class Arrow : MonoBehaviour
             collision.gameObject.GetComponent<Enemy_Knockback>()
                 .Knockback(transform, knockbackForce, knockbackTime, stunTime);
 
+            StickAndDisappear(collision.transform);
+        }
+        else if ((chestLayer.value & (1 << collision.gameObject.layer)) > 0)
+        {
+            collision.gameObject.GetComponent<Chest>()?.TakeDamage(damage);
             StickAndDisappear(collision.transform);
         }
         else if ((obstacleLayer.value & (1 << collision.gameObject.layer)) > 0)

@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+    public static PlayerStats Instance; // PROVA
+
+    public bool hasKey = false;
+
     public int killCount = 0;
 
     [Header("Gems")]
@@ -18,6 +22,17 @@ public class PlayerStats : MonoBehaviour
     [Header("Potion Drop")]
     public int killsForPotion = 3;
     public GameObject potionPrefab;
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
 
     public void AddKill(Vector3 enemyPosition)
     {
@@ -54,5 +69,10 @@ public class PlayerStats : MonoBehaviour
                 if (goldText != null) goldText.text = goldCount.ToString();
                 break;
         }
+    }
+
+    public void GetKey()
+    {
+        hasKey = true;
     }
 }

@@ -1281,6 +1281,94 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 934908824dd91c54faceab385fdc4c18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ActiveInventory
+--- !u!1 &420589903
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 420589904}
+  - component: {fileID: 420589907}
+  - component: {fileID: 420589906}
+  - component: {fileID: 420589905}
+  m_Layer: 5
+  m_Name: KeyUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &420589904
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420589903}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 865154661}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -120, y: -255}
+  m_SizeDelta: {x: 64, y: 64}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &420589905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420589903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a4c7934395c424483afd0d5f60a9dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KeyUI
+--- !u!114 &420589906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420589903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -249422396151011416, guid: 38f36d0eb6726a24a87ba8c20c0a8b6c, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &420589907
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420589903}
+  m_CullTransparentMesh: 1
 --- !u!1 &444628992
 GameObject:
   m_ObjectHideFlags: 0
@@ -2942,6 +3030,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   damage: 1
+  chestLayer:
+    serializedVersion: 2
+    m_Bits: 1024
   anim: {fileID: 587468887}
   cooldown: 1.2
 --- !u!114 &587468890
@@ -3717,6 +3808,7 @@ RectTransform:
   - {fileID: 986467837}
   - {fileID: 692736555}
   - {fileID: 1225626193}
+  - {fileID: 420589904}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3933,6 +4025,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae1744c28558bf744904bb50e9cb1104, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
+  hasKey: 0
   killCount: 0
   diamondCount: 0
   emeraldCount: 0
@@ -4350,7 +4443,6 @@ GameObject:
   - component: {fileID: 1570269717}
   - component: {fileID: 1570269716}
   - component: {fileID: 1570269715}
-  - component: {fileID: 1570269720}
   m_Layer: 5
   m_Name: KillCounter
   m_TagString: Untagged
@@ -4470,21 +4562,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::KillCounterUI
   playerStats: {fileID: 1132489056}
   killText: {fileID: 1982723383}
---- !u!114 &1570269720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1570269713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 112cf7c6d94459d4aaa26fb362ebceaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GemCounterUI
-  stats: {fileID: 1132489056}
-  gemType: 0
-  gemText: {fileID: 177802102}
 --- !u!1 &1622534732
 GameObject:
   m_ObjectHideFlags: 0

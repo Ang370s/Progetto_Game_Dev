@@ -181,7 +181,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Arrow
   rb: {fileID: 3082527172108867271}
   direction: {x: 1, y: 0}
-  lifeSpawn: 2
   speed: 10
   enemyLayer:
     serializedVersion: 2
@@ -189,6 +188,9 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 256
+  chestLayer:
+    serializedVersion: 2
+    m_Bits: 1024
   sr: {fileID: 1395785461673134856}
   buriedSprite: {fileID: 0}
   damage: 1

@@ -12,6 +12,8 @@ public class Player_Combat : MonoBehaviour
     public LayerMask enemyLayer; // Layer mask to identify enemies
     public int damage = 1; // Damage dealt by the attack
 
+    public LayerMask chestLayer; // Layer mask to identify chests   
+
     public Animator anim; // Reference to the Animator component
 
     public float cooldown = 1.2f; // Cooldown time in seconds
@@ -60,17 +62,19 @@ public class Player_Combat : MonoBehaviour
     {
         Collider2D[] enemies = Physics2D.OverlapCircleAll(attakPoint.position, weaponRange, enemyLayer);
 
-        if (enemies.Length > 0)
+        foreach (Collider2D enemy in enemies)
         {
-            foreach (Collider2D enemy in enemies) 
-            {
-                enemy.GetComponent<Enemy_Health>().ChangeHealth(-damage);
-                enemy.GetComponent<Enemy_Knockback>().Knockback(transform, knockbackForce, knockbackTime, stunTime);
-            }
-            
+            enemy.GetComponent<Enemy_Health>().ChangeHealth(-damage);
+            enemy.GetComponent<Enemy_Knockback>().Knockback(transform, knockbackForce, knockbackTime, stunTime);
+        }
 
-            //enemies[0].GetComponent<Enemy_Health>().ChangeHealth(-damage);
-            //enemies[0].GetComponent<Enemy_Knockback>().Knockback(transform, knockbackForce, knockbackTime, stunTime);
+
+        // COLPO AL BAULE
+        Collider2D[] chests = Physics2D.OverlapCircleAll(attakPoint.position, weaponRange, chestLayer);
+
+        foreach (Collider2D chest in chests)
+        {
+            chest.GetComponent<Chest>()?.TakeDamage(damage);
         }
     }
 

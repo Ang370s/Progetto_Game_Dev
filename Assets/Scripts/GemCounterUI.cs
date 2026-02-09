@@ -1,6 +1,9 @@
 using TMPro;
 using UnityEngine;
 
+
+
+/* Da togliere */
 public class GemCounterUI : MonoBehaviour
 {
     public PlayerStats stats;
