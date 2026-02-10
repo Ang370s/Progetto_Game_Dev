@@ -156,3 +156,5 @@ MonoBehaviour:
   emeraldPrefab: {fileID: 2650180515955305606, guid: fbcc61986fa2412428796cf1ed01f776, type: 3}
   diamondPrefab: {fileID: 3511526008494157481, guid: 2b5a2d1e628a5e044bfe0f7323e169ef, type: 3}
   keyPrefab: {fileID: 8248988712321004103, guid: a908e878c5aa67d40b9ae749f40cca09, type: 3}
+  potionPrefab: {fileID: 3346423995608668819, guid: cf592304ae27c7b4186922fb6a1ffef0, type: 3}
+  keyHasDropped: 0

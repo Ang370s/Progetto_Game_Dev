@@ -9,8 +9,10 @@ public class Chest : MonoBehaviour
     public GameObject emeraldPrefab;
     public GameObject diamondPrefab;
     public GameObject keyPrefab;
+    public GameObject potionPrefab;
 
     private bool isDestroyed = false;
+    private static bool keyHasDropped = false;
 
     public void TakeDamage(int damage)
     {
@@ -28,34 +30,37 @@ public class Chest : MonoBehaviour
     {
         isDestroyed = true;
 
-        PlayerStats stats = FindObjectOfType<PlayerStats>();
+        //PlayerStats stats = FindObjectOfType<PlayerStats>();
 
-        if (stats != null && !stats.hasKey)
+        if (!keyHasDropped)
         {
-            // 25% possibilità di chiave
-            if (Random.value < 0.25f)
+            // 05% possibilità di chiave
+            if (Random.value < 0.05f)
             {
                 Instantiate(keyPrefab, transform.position, Quaternion.identity);
                 Destroy(gameObject);
+                keyHasDropped = true;
                 return;
             }
         }
 
-        // Drop gemma
-        DropRandomGem();
+        // Drop oggetti comuni
+        DropRandomObject();
 
         Destroy(gameObject);
     }
 
-    void DropRandomGem()
+    void DropRandomObject()
     {
         float roll = Random.value;
 
-        if (roll < 0.6f)
+        if (roll < 0.5f)
             Instantiate(goldPrefab, transform.position, Quaternion.identity);
-        else if (roll < 0.9f)
+        else if (roll < 0.8f)
             Instantiate(emeraldPrefab, transform.position, Quaternion.identity);
-        else
+        else if (roll < 0.95f)
             Instantiate(diamondPrefab, transform.position, Quaternion.identity);
+        else
+            Instantiate(potionPrefab, transform.position, Quaternion.identity);
     }
 }
