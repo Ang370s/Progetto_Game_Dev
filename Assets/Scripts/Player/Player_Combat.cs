@@ -20,18 +20,6 @@ public class Player_Combat : MonoBehaviour
 
     private float timer; // Timer to track the cooldown
 
-    // Update is called once per frame. Non deve leggere da input !!!!!!!!!!!!!
-    /*private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Attack();
-        }
-
-        if (timer > 0)
-            timer -= Time.deltaTime;
-    }*/
-
     // Versione senza input, da chiamare da PlayerMovement
     private void Update()
     {
@@ -64,13 +52,22 @@ public class Player_Combat : MonoBehaviour
 
         foreach (Collider2D enemy in enemies)
         {
-            enemy.GetComponent<Enemy_Health>().ChangeHealth(-damage);
-            enemy.GetComponent<Enemy_Knockback>().Knockback(transform, knockbackForce, knockbackTime, stunTime);
+            // Se è un nemico base
+            if (enemy.TryGetComponent<Enemy_Health>(out Enemy_Health enHealth))
+            {
+                enHealth.ChangeHealth(-damage);
+                enemy.GetComponent<Enemy_Knockback>().Knockback(transform, knockbackForce, knockbackTime, stunTime);
+            }
+            // SE È IL BOSS
+            else if (enemy.TryGetComponent<BossHealth>(out BossHealth bHealth))
+            {
+                bHealth.TakeDamage(damage);
+                // Se vuoi dare knockback anche al boss, serve uno script BossKnockback!
+            }
         }
 
-
-        // COLPO AL BAULE
-        Collider2D[] chests = Physics2D.OverlapCircleAll(attakPoint.position, weaponRange, chestLayer);
+            // COLPO AL BAULE
+            Collider2D[] chests = Physics2D.OverlapCircleAll(attakPoint.position, weaponRange, chestLayer);
 
         foreach (Collider2D chest in chests)
         {

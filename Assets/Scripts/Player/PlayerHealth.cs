@@ -34,10 +34,6 @@ public class PlayerHealth : MonoBehaviour
         {
             Die(); // Chiama il metodo per gestire la morte del giocatore
             return;
-            //gameObject.SetActive(false); // Disattiva il giocatore
-            //GetComponent<PlayerMovement>().enabled = false; // Ferma il movimento
-            //GetComponent<Collider2D>().enabled = false;    // Evita altri colpi
-            //GetComponent<SpriteRenderer>().color = Color.gray; // Feedback visivo
         }
 
         // Avvia il feedback di danno solo se l'ammontare � negativo (danno subito)
@@ -81,21 +77,5 @@ public class PlayerHealth : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Static;
 
         GetComponent<Collider2D>().enabled = false;
-
-        /*
-        // 1. Attiva l'animazione
-        GetComponent<Animator>().SetTrigger("Die");
-
-        // 2. Disabilita il movimento per non far scivolare il cadavere
-        GetComponent<PlayerMovement>().enabled = false;
-
-        // 3. Opzionale: ferma il corpo fisicamente
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        rb.linearVelocity = Vector2.zero;
-        rb.bodyType = RigidbodyType2D.Static; // Cos� non cade e non sposta altri oggetti
-
-        // 4. Disabilita il collider cos� i nemici lo ignorano
-        GetComponent<Collider2D>().enabled = false;
-        */
     }
 }
