@@ -217,8 +217,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62bd4fa575cd730419601672c769ce8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  maxHealth: 6
-  currentHealth: 6
+  maxHealth: 10
+  currentHealth: 10
   invulnerableTime: 0.5
   heartBar: {fileID: 0}
 --- !u!114 &4029606013240778567
@@ -241,7 +241,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
-  damage: 1
+  damage: 2
   chestLayer:
     serializedVersion: 2
     m_Bits: 1024

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Enemy_Health : MonoBehaviour
 {
-    public int maxHealth = 3;
+    public int maxHealth = 6;
     public int currentHealth;
 
     public float invulnerabilityTime = 0.3f;

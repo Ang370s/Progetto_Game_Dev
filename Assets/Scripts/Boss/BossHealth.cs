@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BossHealth : MonoBehaviour
 {
-    public int maxHealth = 10;
+    public int maxHealth = 20;
     public int currentHealth;
 
     private BossController controller;

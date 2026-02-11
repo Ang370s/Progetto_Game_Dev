@@ -10,7 +10,7 @@ public class Player_Combat : MonoBehaviour
     public float knockbackTime = 0.15f; // Time for which the player is knocked back
     public float stunTime = 0.3f; // Time for which the player is stunned after being hit
     public LayerMask enemyLayer; // Layer mask to identify enemies
-    public int damage = 1; // Damage dealt by the attack
+    public int damage = 2; // Damage dealt by the attack
 
     public LayerMask chestLayer; // Layer mask to identify chests   
 

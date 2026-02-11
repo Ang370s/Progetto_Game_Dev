@@ -275,8 +275,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3eab7343537a694f88cbb71a82f5f61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Health
-  maxHealth: 3
-  currentHealth: 3
+  maxHealth: 6
+  currentHealth: 6
   invulnerabilityTime: 0.3
 --- !u!114 &7607990441119613628
 MonoBehaviour:
