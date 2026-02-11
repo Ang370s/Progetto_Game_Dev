@@ -35,10 +35,6 @@ public class BossHealth : MonoBehaviour
             SpriteRenderer sr = GetComponent<SpriteRenderer>();
             sr.color = Color.red;
             Invoke("ResetColor", 0.1f);
-
-            // Se non usi Animation Events per il danno, questo Invoke va bene
-            CancelInvoke("EndDamage"); // Resetta eventuali invoke precedenti
-            Invoke("EndDamage", 0.3f);
         }
     }
 
@@ -47,7 +43,8 @@ public class BossHealth : MonoBehaviour
         GetComponent<SpriteRenderer>().color = Color.white;
     }
 
-    void EndDamage()
+    // Questa funzione verrà chiamata dall'Animation Event
+    public void OnDamageAnimationEnd()
     {
         if (controller.currentState != BossState.Dead)
         {
@@ -62,9 +59,18 @@ public class BossHealth : MonoBehaviour
 
         controller.isBusy = true;
         controller.ChangeState(BossState.Dead);
+
+        // 1. Disabilita il collider così le nuove frecce passano attraverso
         GetComponent<Collider2D>().enabled = false;
 
-        // Comunica la kill alle statistiche (opzionale)
+        // 2. FERMA LA FISICA: Impedisce che venga trascinato o spostato
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.bodyType = RigidbodyType2D.Static; // Diventa un oggetto fisso, la freccia non lo sposta più
+        }
+
         if (PlayerStats.Instance != null)
         {
             PlayerStats.Instance.AddKill(transform.position);

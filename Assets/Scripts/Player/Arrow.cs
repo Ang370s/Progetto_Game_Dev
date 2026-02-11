@@ -34,7 +34,7 @@ public class Arrow : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle)); // Rotate the arrow to face the direction of movement
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    /*private void OnCollisionEnter2D(Collision2D collision)
     {
         if ((enemyLayer.value & (1 << collision.gameObject.layer)) > 0)
         {
@@ -55,7 +55,48 @@ public class Arrow : MonoBehaviour
         {
             AttachToTarget(collision.transform);
         }
+    }*/
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // 1. Identifica se l'oggetto è nel Layer Enemy
+        if ((enemyLayer.value & (1 << collision.gameObject.layer)) > 0)
+        {
+            // Prova a prendere la salute del nemico comune
+            Enemy_Health enemy = collision.gameObject.GetComponent<Enemy_Health>();
+
+            if (enemy != null)
+            {
+                // CASO NEMICO COMUNE
+                enemy.ChangeHealth(-damage);
+
+                // Il knockback lo cerchiamo SOLO qui dentro
+                if (collision.gameObject.TryGetComponent<Enemy_Knockback>(out Enemy_Knockback kb))
+                {
+                    kb.Knockback(transform, knockbackForce, knockbackTime, stunTime);
+                }
+            }
+            else if (collision.gameObject.TryGetComponent<BossHealth>(out BossHealth boss))
+            {
+                // CASO BOSS
+                boss.TakeDamage(damage);
+                // Il boss non ha knockback
+            }
+
+            StickAndDisappear(collision.transform);
+        }
+        // 2. Altri Layer (Casse, Ostacoli...)
+        else if ((chestLayer.value & (1 << collision.gameObject.layer)) > 0)
+        {
+            collision.gameObject.GetComponent<Chest>()?.TakeDamage(damage);
+            StickAndDisappear(collision.transform);
+        }
+        else if ((obstacleLayer.value & (1 << collision.gameObject.layer)) > 0)
+        {
+            AttachToTarget(collision.transform);
+        }
     }
+
 
     void StickAndDisappear(Transform target)
     {
