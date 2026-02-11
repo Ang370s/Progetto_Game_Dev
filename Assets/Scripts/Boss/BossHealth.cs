@@ -1,3 +1,4 @@
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class BossHealth : MonoBehaviour
@@ -56,26 +57,38 @@ public class BossHealth : MonoBehaviour
     void Die()
     {
         if (controller.currentState == BossState.Dead) return;
-
         controller.isBusy = true;
         controller.ChangeState(BossState.Dead);
 
-        // 1. Disabilita il collider così le nuove frecce passano attraverso
         GetComponent<Collider2D>().enabled = false;
-
-        // 2. FERMA LA FISICA: Impedisce che venga trascinato o spostato
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (rb != null)
         {
             rb.linearVelocity = Vector2.zero;
-            rb.bodyType = RigidbodyType2D.Static; // Diventa un oggetto fisso, la freccia non lo sposta più
+            rb.bodyType = RigidbodyType2D.Static;
         }
 
+        // 1. GESTIONE TEMPO (Prima della notifica kill)
+        GameTimer timer = FindObjectOfType<GameTimer>();
+        if (timer != null)
+        {
+            timer.StopTimer();
+            PlayerStats.Instance.SaveTimeBeforeExit(timer.GetTime());
+        }
+
+        // 2. NOTIFICA KILL (Una sola volta!)
         if (PlayerStats.Instance != null)
         {
-            PlayerStats.Instance.AddKill(transform.position);
+            PlayerStats.Instance.AddKill(transform.position, true);
         }
 
-        Debug.Log("Il Boss è stato sconfitto!");
+        Debug.Log("Boss sconfitto e tempo salvato!");
+        Invoke("LoadVictory", 3.0f);
+    }
+
+
+    void LoadVictory()
+    {
+        SceneManager.LoadScene("VictoryScene");
     }
 }
