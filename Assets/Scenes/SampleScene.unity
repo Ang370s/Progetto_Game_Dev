@@ -381,7 +381,7 @@ MonoBehaviour:
   dungeonWidth: 100
   dungeonHeight: 100
   offset: 1
-  randomWalkRooms: 0
+  randomWalkRooms: 1
   player: {fileID: 873587462}
   enemyPrefab: {fileID: 1335258423065087813, guid: e183297541ae70642b6dfed3c07cfb94, type: 3}
   minEnemiesPerRoom: 1
@@ -1262,7 +1262,7 @@ GameObject:
   - component: {fileID: 537090721}
   - component: {fileID: 537090720}
   - component: {fileID: 537090719}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
