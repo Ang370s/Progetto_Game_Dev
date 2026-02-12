@@ -22,6 +22,7 @@ public class VictoryManager : MonoBehaviour
             if (oldUI != null) oldUI.enabled = false;
 
             Debug.Log("Punteggio caricato correttamente: " + totale);
+            Debug.Log("Vittoria! Kill: " + PlayerStats.Instance.killCount + " Boss: " + PlayerStats.Instance.bossDefeated);
         }
         else
         {

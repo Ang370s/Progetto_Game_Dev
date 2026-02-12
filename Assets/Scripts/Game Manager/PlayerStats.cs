@@ -36,28 +36,21 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-
-    /*void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-    }*/
-
     void Awake()
     {
+
+        Debug.Log("Awake chiamato su: " + gameObject.name);
+
         if (Instance == null)
         {
             Instance = this;
             // Rende l'oggetto immortale tra le scene
             DontDestroyOnLoad(gameObject);
+            Debug.Log("Istanza creata con successo. Ora sono in DontDestroyOnLoad.");
         }
         else
         {
+            Debug.LogWarning("Esiste già un'altra istanza di PlayerStats! Distruggo questo duplicato: " + gameObject.name);
             Destroy(gameObject);
         }
     }
@@ -110,13 +103,15 @@ public class PlayerStats : MonoBehaviour
         if (isBoss)
         {
             bossDefeated = true;
-            Debug.Log("Boss abbattuto! Bonus 2000 punti attivato.");
+            Debug.Log("BossDefeated impostato a TRUE");
         }
         else
         {
             killCount++;
             if (killCount % killsForPotion == 0) DropPotion(enemyPosition);
         }
+        
+        UpdateUI();
 
         /*killCount++;
 

@@ -149,7 +149,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 245197110}
-  - {fileID: 1132489055}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &80002509
@@ -2670,7 +2669,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -170, y: -125}
+  m_AnchoredPosition: {x: -170, y: -190}
   m_SizeDelta: {x: 58, y: 58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &692736556
@@ -3082,62 +3081,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!1 &1132489054
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1132489055}
-  - component: {fileID: 1132489056}
-  m_Layer: 0
-  m_Name: PlayerStats
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1132489055
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1132489054}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 28611583}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1132489056
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1132489054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae1744c28558bf744904bb50e9cb1104, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
-  finalTimeSaved: 0
-  bossDefeated: 0
-  hasKey: 0
-  killCount: 0
-  diamondCount: 0
-  emeraldCount: 0
-  goldCount: 0
-  diamondText: {fileID: 177802102}
-  emeraldText: {fileID: 1846739971}
-  goldText: {fileID: 2070828233}
-  killsForPotion: 3
-  potionPrefab: {fileID: 3346423995608668819, guid: cf592304ae27c7b4186922fb6a1ffef0, type: 3}
 --- !u!1 &1225626192
 GameObject:
   m_ObjectHideFlags: 0
@@ -3174,7 +3117,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -170, y: -190}
+  m_AnchoredPosition: {x: -170, y: -125}
   m_SizeDelta: {x: 58, y: 58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1225626194
@@ -3418,7 +3361,7 @@ Transform:
   m_GameObject: {fileID: 1246343459}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.63, y: -0.33, z: 0}
+  m_LocalPosition: {x: 7.58, y: 5.04, z: 0}
   m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3538,11 +3481,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7931810374892691742, guid: e183297541ae70642b6dfed3c07cfb94, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.46
+      value: -8.34
       objectReference: {fileID: 0}
     - target: {fileID: 7931810374892691742, guid: e183297541ae70642b6dfed3c07cfb94, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.07
+      value: 5.11
       objectReference: {fileID: 0}
     - target: {fileID: 7931810374892691742, guid: e183297541ae70642b6dfed3c07cfb94, type: 3}
       propertyPath: m_LocalPosition.z
