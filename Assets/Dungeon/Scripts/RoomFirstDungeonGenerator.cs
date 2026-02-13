@@ -21,10 +21,15 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     [SerializeField] private int minChestPerRoom = 1;
     [SerializeField] private int maxChestPerRoom = 2;
 
+    [Header("Door")]
+    [SerializeField] private GameObject doorPrefab;
+
     protected override void RunProceduralGeneration()
     {
         CreateRooms();
     }
+
+
 
     private void CreateRooms()
     {
@@ -48,6 +53,7 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
         SpawnEnemies(roomsList);
         SpawnChests(roomsList);
+        SpawnDoor(roomCenters);
 
         if (player != null && roomCenters.Count > 0)
             StartCoroutine(MovePlayerNextFrame(tilemapVisualizer.GetCellCenterWorld(roomCenters[0])));
@@ -104,6 +110,110 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             }
         }
     }
+
+    // =========================
+    // DOOR SPAWN
+    // =========================
+
+    private void SpawnDoor(List<Vector2Int> roomCenters)
+    {
+        if (doorPrefab == null || player == null) return;
+
+        Vector2Int playerGrid = Vector2Int.RoundToInt(player.position);
+
+        // trova stanza più lontana
+        Vector2Int farthestRoom = roomCenters[0];
+        float maxDist = 0;
+
+        foreach (var room in roomCenters)
+        {
+            float dist = Vector2.Distance(room, playerGrid);
+            if (dist > maxDist)
+            {
+                maxDist = dist;
+                farthestRoom = room;
+            }
+        }
+
+        // trova posizione muro frontale
+        Vector2Int doorPos = FindFrontWallNear(farthestRoom);
+
+        if (doorPos != Vector2Int.zero)
+        {
+            // Prendi il centro della prima cella
+            Vector3 worldPos = tilemapVisualizer.GetCellCenterWorld(doorPos);
+
+            // SPOSTA il prefab di mezza unità a destra per coprire perfettamente 2 celle
+            worldPos += new Vector3(0.5f, 0, 0);
+
+            Instantiate(doorPrefab, worldPos, Quaternion.identity);
+        }
+    }
+
+    private Vector2Int FindFrontWallNear(Vector2Int center)
+    {
+        int searchRadius = 100;
+
+        for (int r = 1; r < searchRadius; r++)
+        {
+            for (int x = -r; x <= r; x++)
+            {
+                for (int y = -r; y <= r; y++)
+                {
+                    Vector2Int floorPos = center + new Vector2Int(x, y);
+
+                    // serve pavimento sotto
+                    if (!tilemapVisualizer.FloorTileExists(floorPos))
+                        continue;
+
+                    // posizione muro frontale
+                    Vector2Int wallStart = floorPos + Vector2Int.up;
+
+                    // controlliamo 4 muri consecutivi
+                    bool validSequence = true;
+
+                    for (int i = 0; i < 2; i++)
+                    {
+                        Vector2Int currentWall = wallStart + Vector2Int.right * i;
+                        Vector2Int floorBelow = floorPos + Vector2Int.right * i;
+
+                        // deve esserci pavimento sotto
+                        if (!tilemapVisualizer.FloorTileExists(floorBelow))
+                        {
+                            validSequence = false;
+                            break;
+                        }
+
+                        // sopra NON deve esserci pavimento
+                        if (tilemapVisualizer.FloorTileExists(currentWall))
+                        {
+                            validSequence = false;
+                            break;
+                        }
+
+                        // lati NON devono avere pavimento
+                        if (tilemapVisualizer.FloorTileExists(currentWall + Vector2Int.left) ||
+                            tilemapVisualizer.FloorTileExists(currentWall + Vector2Int.right))
+                        {
+                            validSequence = false;
+                            break;
+                        }
+                    }
+                    if (validSequence)
+                    {
+                        // ritorniamo i 2 centrali per centrare la porta
+                        return wallStart;
+                    }
+                }
+            }
+        }
+
+        return Vector2Int.zero;
+    }
+
+
+
+
 
     // =========================
     // VALID TILE LIST
