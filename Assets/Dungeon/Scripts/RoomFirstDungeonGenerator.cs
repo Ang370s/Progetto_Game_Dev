@@ -8,18 +8,29 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 {
     [SerializeField]
     private int minRoomWidth = 4, minRoomHeight = 4;
+    
     [SerializeField]
     private int dungeonWidth = 20, dungeonHeight = 20;
+    
     [SerializeField]
     [Range(0, 10)]
     private int offset = 1;
+    
     [SerializeField]
     private bool randomWalkRooms = false;
+    
     [SerializeField]
     private Transform player;
+
+    [Header("Enemies")]
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private int minEnemiesPerRoom = 1;
     [SerializeField] private int maxEnemiesPerRoom = 3;
+
+    [Header("Chest")]
+    [SerializeField] private GameObject chestPrefab;
+    [SerializeField] private int minChestPerRoom = 1;
+    [SerializeField] private int maxChestPerRoom = 3;
 
 
 
@@ -59,6 +70,7 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         tilemapVisualizer.PaintFloorTiles(floor);
         WallGenerator.CreateWalls(floor, tilemapVisualizer);
         SpawnEnemies(roomsList);
+        SpawnChests(roomsList);
 
 
         // ---- MOVE PLAYER TO FIRST ROOM ----
@@ -96,10 +108,16 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
                 for (int y = offset; y < room.size.y - offset; y++)
                 {
                     Vector2Int pos = (Vector2Int)room.min + new Vector2Int(x, y);
-                    if (tilemapVisualizer.FloorTileExists(pos)) // <- metodo che controlla se c'è tile dipinta
+                    /*if (tilemapVisualizer.FloorTileExists(pos)) // <- metodo che controlla se c'è tile dipinta
+                    {
+                        validTiles.Add(pos);
+                    }*/
+                    Vector2 enemySize = new Vector2(0.8f, 0.8f);
+                    if (tilemapVisualizer.FloorTileExists(pos) && IsAreaFree(pos, enemySize))
                     {
                         validTiles.Add(pos);
                     }
+
                 }
             }
 
@@ -116,6 +134,54 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             }
         }
     }
+
+    private void SpawnChests(List<BoundsInt> roomsList)
+    {
+        foreach (var room in roomsList)
+        {
+            int chestsToSpawn = Random.Range(minChestPerRoom, maxChestPerRoom + 1);
+            HashSet<Vector2Int> validTiles = new HashSet<Vector2Int>();
+            for (int x = offset; x < room.size.x - offset; x++)
+            {
+                for (int y = offset; y < room.size.y - offset; y++)
+                {
+                    Vector2Int pos = (Vector2Int)room.min + new Vector2Int(x, y);
+                    /*if (tilemapVisualizer.FloorTileExists(pos))
+                    {
+                        validTiles.Add(pos);
+                    }*/
+                    Vector3 worldPos = new Vector3(pos.x + 0.5f, pos.y + 0.5f);
+
+                    Collider2D hit = Physics2D.OverlapCircle(worldPos, 0.3f);
+
+                    if (tilemapVisualizer.FloorTileExists(pos) && hit == null)
+                    {
+                        validTiles.Add(pos);
+                    }
+
+                }
+            }
+            List<Vector2Int> validList = new List<Vector2Int>(validTiles);
+            for (int i = 0; i < chestsToSpawn && validList.Count > 0; i++)
+            {
+                int randomIndex = Random.Range(0, validList.Count);
+                Vector2Int spawnPos = validList[randomIndex];
+                validList.RemoveAt(randomIndex);
+                Vector3 worldPos = new Vector3(spawnPos.x, spawnPos.y, 0);
+                Instantiate(chestPrefab, worldPos, Quaternion.identity);
+            }
+        }
+    }
+
+    bool IsAreaFree(Vector2Int pos, Vector2 size)
+    {
+        Vector2 worldPos = new Vector2(pos.x + 0.5f, pos.y + 0.5f);
+
+        Collider2D hit = Physics2D.OverlapBox(worldPos, size, 0f);
+
+        return hit == null;
+    }
+
 
 
     private Vector2Int GetRandomPositionInRoom(BoundsInt room)

@@ -386,6 +386,9 @@ MonoBehaviour:
   enemyPrefab: {fileID: 1335258423065087813, guid: e183297541ae70642b6dfed3c07cfb94, type: 3}
   minEnemiesPerRoom: 1
   maxEnemiesPerRoom: 3
+  chestPrefab: {fileID: 3797851631989943959, guid: 126b8f05af8a9fc43b53093bea20c167, type: 3}
+  minChestPerRoom: 1
+  maxChestPerRoom: 3
 --- !u!4 &121205345
 Transform:
   m_ObjectHideFlags: 0
@@ -1369,7 +1372,7 @@ TilemapRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
