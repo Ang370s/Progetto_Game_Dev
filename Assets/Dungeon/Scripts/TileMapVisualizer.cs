@@ -113,4 +113,10 @@ public class TilemapVisualizer : MonoBehaviour
         if (tile != null)
             PaintSingleTile(wallTilemap, tile, position);
     }
+
+    public Vector3 GetCellCenterWorld(Vector2Int pos)
+    {
+        return floorTilemap.GetCellCenterWorld((Vector3Int)pos);
+    }
+
 }
