@@ -115,7 +115,7 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     // DOOR SPAWN
     // =========================
 
-    private void SpawnDoor(List<Vector2Int> roomCenters)
+    /*private void SpawnDoor(List<Vector2Int> roomCenters)
     {
         if (doorPrefab == null || player == null) return;
 
@@ -148,7 +148,41 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
             Instantiate(doorPrefab, worldPos, Quaternion.identity);
         }
+    }*/
+
+    private void SpawnDoor(List<Vector2Int> roomCenters)
+    {
+        if (doorPrefab == null || player == null || roomCenters.Count == 0) return;
+
+        // FORZA il calcolo sulla posizione di partenza se il player non si è ancora mosso
+        Vector2 playerPos = new Vector2(player.position.x, player.position.y);
+
+        Vector2Int farthestRoom = roomCenters[0];
+        float maxDist = -1f;
+
+        foreach (var roomCenter in roomCenters)
+        {
+            float dist = Vector2.Distance(roomCenter, roomCenters[0]);
+            if (dist > maxDist)
+            {
+                maxDist = dist;
+                farthestRoom = roomCenter;
+            }
+        }
+
+        // Debug per vedere visivamente in Unity quale stanza ha scelto
+        Debug.DrawLine((Vector2)roomCenters[0], (Vector2)farthestRoom, Color.red, 10f);
+
+        Vector2Int doorPos = FindFrontWallNear(farthestRoom);
+
+        if (doorPos != Vector2Int.zero)
+        {
+            // Centro della cella + offset di 0.5 per coprire 2 celle esatte
+            Vector3 worldPos = tilemapVisualizer.GetCellCenterWorld(doorPos) + new Vector3(0.5f, 0, 0);
+            Instantiate(doorPrefab, worldPos, Quaternion.identity);
+        }
     }
+
 
     private Vector2Int FindFrontWallNear(Vector2Int center)
     {
