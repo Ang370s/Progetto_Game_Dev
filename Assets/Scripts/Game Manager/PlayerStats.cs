@@ -114,13 +114,19 @@ public class PlayerStats : MonoBehaviour
     }
 
     // Aggiungiamo un metodo per resettare le statistiche se ricominci il gioco
-    public void ResetStats()
+ public void ResetStats()
     {
         killCount = 0;
         diamondCount = 0;
         emeraldCount = 0;
         goldCount = 0;
         hasKey = false;
+        bossDefeated = false;
+
+        finalTimeSaved = 0f;
+        savedHealth = 0;
+        savedPotions = 0;
+
         UpdateUI();
     }
 

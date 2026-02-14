@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameTimer : MonoBehaviour
 {
@@ -31,5 +32,29 @@ public class GameTimer : MonoBehaviour
     public float GetTime()
     {
         return elapsedTime;
+    }
+
+    public void ResetTimer()
+    {
+        elapsedTime = 0f;
+        isRunning = true;
+    }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "SampleScene")
+        {
+            ResetTimer();
+        }
     }
 }

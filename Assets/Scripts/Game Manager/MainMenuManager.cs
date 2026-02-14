@@ -5,6 +5,11 @@ public class MainMenuManager : MonoBehaviour
 {
     public void PlayGame()
     {
+        if (PlayerStats.Instance != null)
+        {
+            PlayerStats.Instance.ResetStats();
+        }
+
         SceneManager.LoadScene("SampleScene");
     }
 
