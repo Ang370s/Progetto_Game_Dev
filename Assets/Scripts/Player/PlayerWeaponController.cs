@@ -17,6 +17,9 @@ public class PlayerWeaponController : MonoBehaviour
 
     private void Start()
     {
+        if (activeInventory == null)
+            activeInventory = FindObjectOfType<ActiveInventory>();
+
         EquipSword(); // default
     }
 
@@ -51,30 +54,6 @@ public class PlayerWeaponController : MonoBehaviour
             }
         }
     }
-
-
-    /*private void Update()
-    {
-        // Switch weapon
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            EquipSword();
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            EquipBow();
-
-        if (Input.GetKey(KeyCode.Alpha3) && Input.GetMouseButtonDown(0))
-            inventory.UsePotion();
-
-        // Attack input (unificato)
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (currentWeapon == WeaponType.Sword && currentWeapon == WeaponType.Sword)
-                sword.Attack();
-
-            if (currentWeapon == WeaponType.Bow && currentWeapon == WeaponType.Bow)
-                bow.StartShooting();
-        }
-    }*/
 
     void EquipSword()
     {

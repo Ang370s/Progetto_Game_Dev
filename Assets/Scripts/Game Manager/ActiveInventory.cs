@@ -3,7 +3,6 @@ using UnityEngine;
 public class ActiveInventory : MonoBehaviour
 {
     private int activeSlotIndexNum = 0;
-
     private InputSystem_Actions playerControls;
 
     private void Awake()
@@ -13,9 +12,7 @@ public class ActiveInventory : MonoBehaviour
 
     private void Start()
     {
-        playerControls.Inventory.Keyboard.performed += ctx => ToggleActiveSlot((int)ctx.ReadValue<float>());
-
-        // Forza l'evidenziazione del primo slot all'avvio
+        playerControls.Inventory.Keyboard.performed += OnInventoryKeyPressed;
         ToggleActiveHighLight(0);
     }
 
@@ -24,12 +21,21 @@ public class ActiveInventory : MonoBehaviour
         playerControls.Enable();
     }
 
+    private void OnDisable()
+    {
+        playerControls.Inventory.Keyboard.performed -= OnInventoryKeyPressed;
+        playerControls.Disable();
+    }
+
+    private void OnInventoryKeyPressed(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
+    {
+        ToggleActiveSlot((int)ctx.ReadValue<float>());
+    }
+
     private void ToggleActiveSlot(int numValue)
     {
-        // numValue è il tasto premuto (1, 2, 3...). Sottraiamo 1 per l'indice (0, 1, 2...)
         int targetIndex = numValue - 1;
 
-        // Controllo di sicurezza: se l'indice esiste nella lista dei figli
         if (targetIndex >= 0 && targetIndex < transform.childCount)
         {
             ToggleActiveHighLight(targetIndex);
@@ -40,17 +46,16 @@ public class ActiveInventory : MonoBehaviour
     {
         activeSlotIndexNum = indexNum;
 
-        foreach (Transform inventorySlot in this.transform)
+        foreach (Transform inventorySlot in transform)
         {
             inventorySlot.GetChild(0).gameObject.SetActive(false);
         }
 
-        this.transform.GetChild(indexNum).GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(indexNum).GetChild(0).gameObject.SetActive(true);
     }
 
     public int GetActiveSlot()
     {
         return activeSlotIndexNum;
     }
-
 }

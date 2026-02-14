@@ -9,7 +9,7 @@ public class HealthHeartBar : MonoBehaviour
     List<HealthHeart> hearts = new List<HealthHeart>(); // Lista dei cuori attuali
 
     // Start is called before the first frame update
-    private void Start()
+    /*private void Start()
     {
         // Calcoliamo quanti cuori servono (es. 6 hp / 2 = 3 cuori)
         int totalHearts = Mathf.CeilToInt(playerHealth.maxHealth / 2f);
@@ -19,11 +19,31 @@ public class HealthHeartBar : MonoBehaviour
 
         // Ora che i cuori esistono, li coloriamo in base alla vita attuale
         DrawHearts();
+    }*/
+
+    private void Start()
+    {
+        if (playerHealth == null)
+            playerHealth = FindObjectOfType<PlayerHealth>();
+
+        if (playerHealth == null)
+        {
+            Debug.LogWarning("PlayerHealth non trovato!");
+            return;
+        }
+
+        int totalHearts = Mathf.CeilToInt(playerHealth.maxHealth / 2f);
+
+        CreateEmptyHearts(totalHearts);
+        DrawHearts();
     }
 
     // Update is called once per frame
     public void DrawHearts()
     {
+
+        if (playerHealth == null) return;
+
         // Se non ci sono cuori, non facciamo nulla
         if (hearts.Count == 0) return;
 

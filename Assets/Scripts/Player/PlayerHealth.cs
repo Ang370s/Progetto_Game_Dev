@@ -3,6 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+/*
+ * PlayerHealth.cs
+ * 
+ * Questo script gestisce la salute del giocatore, il feedback di danno e la morte.
+ * Assicurati che il GameObject del giocatore abbia un componente Animator con i trigger "Damage" e "Die" configurati.
+ * Inoltre, assicurati che il GameObject del giocatore abbia un componente Collider2D e Rigidbody2D per gestire le collisioni e la fisica.
+ * 
+ * Il metodo ChangeHealth(int amount) viene chiamato per modificare la salute del giocatore. Se l'amount è negativo, si infligge danno; se è positivo, si cura.
+ * Dopo ogni modifica della salute, viene aggiornato il display dei cuori tramite il componente HealthHeartBar.
+ * Se la salute scende a 0 o meno, viene chiamato il metodo Die() per gestire la morte del giocatore.
+ */
 public class PlayerHealth : MonoBehaviour
 {
     public float maxHealth = 10; // Deve essere un multiplo di 2
@@ -15,6 +27,31 @@ public class PlayerHealth : MonoBehaviour
 
     // Trascina l'oggetto con lo script HealthHeartBar qui nell'Inspector
     public HealthHeartBar heartBar;
+
+    void Start()
+    {
+        if (heartBar == null)
+            heartBar = FindObjectOfType<HealthHeartBar>();
+
+        // Se esiste una vita salvata → ripristina
+        if (PlayerStats.Instance != null && PlayerStats.Instance.savedHealth > 0)
+        {
+            currentHealth = PlayerStats.Instance.savedHealth;
+        }
+
+        if (heartBar != null)
+            heartBar.DrawHearts();
+    }
+
+    // permette di aggiornare i cuori ogni volta che il giocatore viene abilitato (ad esempio dopo un respawn)
+    void OnEnable()
+    {
+        if (heartBar == null)
+            heartBar = FindObjectOfType<HealthHeartBar>();
+
+        if (heartBar != null)
+            heartBar.DrawHearts();
+    }
 
     // Metodo per cambiare la salute del giocatore
     public void ChangeHealth(int amount)

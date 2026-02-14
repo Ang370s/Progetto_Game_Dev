@@ -12,6 +12,12 @@ public class PlayerStats : MonoBehaviour
     public bool hasKey = false;
     public int killCount = 0;
 
+    [Header("Player Health")]
+    public float savedHealth;
+
+    [Header("Inventory")]
+    public int savedPotions = 0;
+
     [Header("Gems")]
     public int diamondCount = 0;
     public int emeraldCount = 0;
@@ -54,6 +60,26 @@ public class PlayerStats : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        diamondText = GameObject.Find("DiamondText")?.GetComponent<TextMeshProUGUI>();
+        emeraldText = GameObject.Find("EmeraldText")?.GetComponent<TextMeshProUGUI>();
+        goldText = GameObject.Find("GoldText")?.GetComponent<TextMeshProUGUI>();
+
+        UpdateUI();
+    }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
 
     // --- CALCOLO PUNTEGGIO FINALE ---
     public int GetFinalScore()

@@ -11,6 +11,14 @@ public class PlayerInventory : MonoBehaviour
     private PlayerHealth playerHealth;
     private SpriteRenderer sr;
 
+    void Start()
+    {
+        if (PlayerStats.Instance != null)
+        {
+            potionCount = PlayerStats.Instance.savedPotions;
+        }
+    }
+
     private void Awake()
     {
         playerHealth = GetComponent<PlayerHealth>();
