@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -60,12 +61,11 @@ public class PlayerHealth : MonoBehaviour
     void Die()
     {
 
-        if (isDead) return; // Evita di chiamare pi� volte la morte
+        if (isDead) return; // Evita di chiamare più volte la morte
         isDead = true;
 
-        GameTimer timer = FindObjectOfType<GameTimer>();
-        if (timer != null)
-            timer.StopTimer();
+        if (PlayerStats.Instance != null)
+            PlayerStats.Instance.SaveTimeFromTimer();
 
         Animator anim = GetComponent<Animator>();
         anim.SetTrigger("Die");
@@ -77,5 +77,13 @@ public class PlayerHealth : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Static;
 
         GetComponent<Collider2D>().enabled = false;
+
+        Invoke(nameof(LoadGameOver), 1.5f);
     }
+
+    void LoadGameOver()
+    {
+        SceneManager.LoadScene("GameOverScene");
+    }
+
 }

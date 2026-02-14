@@ -172,4 +172,15 @@ public class PlayerStats : MonoBehaviour
     {
         finalTimeSaved = time;
     }
+
+    public void SaveTimeFromTimer()
+    {
+        GameTimer timer = FindObjectOfType<GameTimer>();
+        if (timer != null)
+        {
+            timer.StopTimer();
+            finalTimeSaved = timer.GetTime();
+        }
+    }
+
 }
