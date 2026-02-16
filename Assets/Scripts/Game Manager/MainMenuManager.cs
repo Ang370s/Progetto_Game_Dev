@@ -13,6 +13,11 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadScene("SampleScene");
     }
 
+    public void OpenRecords()
+    {
+        SceneManager.LoadScene("RecordsScene");
+    }
+
     public void OpenOptions()
     {
         SceneManager.LoadScene("OptionsScene");

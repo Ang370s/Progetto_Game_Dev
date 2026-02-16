@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/BossFightScene/BossFightScene.unity
     guid: a68a94a4c0102b142ab6c420b01a47c3
   - enabled: 1
+    path: Assets/Scenes/RecordsScene/RecordsScene.unity
+    guid: 9db366bbcdd724e49a7968910c0d6b58
+  - enabled: 1
     path: Assets/Scenes/OptionsScene/OptionsScene.unity
     guid: 3f3369c6eaee08341ba6e01b605ee5ac
   - enabled: 1
