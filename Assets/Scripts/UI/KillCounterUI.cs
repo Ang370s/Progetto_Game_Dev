@@ -5,13 +5,13 @@ public class KillCounterUI : MonoBehaviour
 {
     public PlayerStats playerStats;
     public TextMeshProUGUI killText;
-    
-   /* void Start()
-    {
-        UpdateDisplay();
-    }*/
 
-    void Start()
+    /* void Start()
+     {
+         UpdateDisplay();
+     }*/
+
+    /*void Start()
     {
         if (playerStats == null)
             playerStats = PlayerStats.Instance;
@@ -20,5 +20,21 @@ public class KillCounterUI : MonoBehaviour
     void Update()
     {
         killText.text = playerStats.killCount.ToString();
+    }*/
+
+    void Start()
+    {
+        if (playerStats == null)
+            playerStats = PlayerStats.Instance;
+
+        UpdateDisplay();
     }
+
+    void UpdateDisplay()
+    {
+        if (playerStats == null) return;
+
+        killText.text = playerStats.killCount.ToString();
+    }
+
 }

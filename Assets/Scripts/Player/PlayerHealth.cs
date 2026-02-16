@@ -102,7 +102,10 @@ public class PlayerHealth : MonoBehaviour
         isDead = true;
 
         if (PlayerStats.Instance != null)
+        {
+            PlayerStats.Instance.playerDied = true;
             PlayerStats.Instance.SaveTimeFromTimer();
+        }
 
         Animator anim = GetComponent<Animator>();
         anim.SetTrigger("Die");

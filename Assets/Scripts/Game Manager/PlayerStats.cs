@@ -11,6 +11,7 @@ public class PlayerStats : MonoBehaviour
     public bool bossDefeated = false; // Nuova variabile
     public bool hasKey = false;
     public int killCount = 0;
+    public bool playerDied = false;
 
     [Header("Player Health")]
     public float savedHealth;
@@ -110,6 +111,10 @@ public class PlayerStats : MonoBehaviour
         int timeBonus = Mathf.Max(0, 5000 - (int)(timeToCalculate * 10));
         score += timeBonus;
 
+        if (playerDied) score = Mathf.Max(0, score - 5000); // Penalità per la morte
+
+        if (score < 0) score = 0; // Non permettiamo punteggi negativi
+
         return score;
     }
 
@@ -122,6 +127,7 @@ public class PlayerStats : MonoBehaviour
         goldCount = 0;
         hasKey = false;
         bossDefeated = false;
+        playerDied = false;
 
         finalTimeSaved = 0f;
         savedHealth = 0;
@@ -144,14 +150,6 @@ public class PlayerStats : MonoBehaviour
         }
         
         UpdateUI();
-
-        /*killCount++;
-
-        // Ogni 3 kill
-        if (killCount % killsForPotion == 0)
-        {
-            DropPotion(enemyPosition);
-        }*/
     }
 
     void DropPotion(Vector3 position)
