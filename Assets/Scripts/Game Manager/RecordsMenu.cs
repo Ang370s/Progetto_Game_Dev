@@ -32,11 +32,11 @@ public class RecordsMenu : MonoBehaviour
         }
         var scores = ScoreManager.Instance.scoreList.scores;
 
-        recordsText.text = "TOP 10\n\n";
+        int maxToShow = Mathf.Min(5, scores.Count);
 
-        for (int i = 0; i < scores.Count; i++)
+        for (int i = 0; i < maxToShow; i++)
         {
-            recordsText.text += $"{i + 1}. {scores[i].score} - {scores[i].date}\n";
+            recordsText.text += $"\n{i + 1}. {scores[i].score} - {scores[i].date}\n";
         }
     }
 
