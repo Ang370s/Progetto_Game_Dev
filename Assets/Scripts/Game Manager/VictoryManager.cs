@@ -23,6 +23,9 @@ public class VictoryManager : MonoBehaviour
 
             Debug.Log("Punteggio caricato correttamente: " + totale);
             Debug.Log("Vittoria! Kill: " + PlayerStats.Instance.killCount + " Boss: " + PlayerStats.Instance.bossDefeated);
+
+            // 4. Salva il punteggio
+            ScoreManager.Instance.SaveNewScore(totale);
         }
         else
         {
