@@ -13,13 +13,17 @@ public class KillCounterUI : MonoBehaviour
 
     void Start()
     {
+        if (PlayerStats.Instance != null)
+            PlayerStats.Instance.ResetStats();
         if (playerStats == null)
             playerStats = PlayerStats.Instance;
     }
 
     void Update()
     {
-        killText.text = playerStats.killCount.ToString();
+        if (PlayerStats.Instance == null) return;
+
+        killText.text = PlayerStats.Instance.killCount.ToString();
     }
 
     /*void Start()
