@@ -13,8 +13,6 @@ public class KillCounterUI : MonoBehaviour
 
     void Start()
     {
-        if (PlayerStats.Instance != null)
-            PlayerStats.Instance.ResetStats();
         if (playerStats == null)
             playerStats = PlayerStats.Instance;
     }

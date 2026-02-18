@@ -5,69 +5,86 @@ public class PauseManager : MonoBehaviour
 {
     public static bool isPaused = false;
 
+    [Header("UI Panels")]
     public GameObject pausePanel;
     public GameObject optionsPanel;
+    public GameObject pauseButton; // il quadratino
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isPaused)
-                Resume();
-            else
-                Pause();
+            TogglePause();
         }
     }
 
+    // Metodo principale per cambiare stato pausa
     public void TogglePause()
     {
         isPaused = !isPaused;
 
+        // Pannelli
         pausePanel.SetActive(isPaused);
+        optionsPanel.SetActive(false); // chiudi options se aperto
 
-        if (isPaused)
-            Time.timeScale = 0f;
-        else
-            Time.timeScale = 1f;
+        // Quadratino
+        if (pauseButton != null)
+            pauseButton.SetActive(!isPaused);
+
+        // Blocca o sblocca il gioco
+        Time.timeScale = isPaused ? 0f : 1f;
     }
 
-
-    public void Pause()
-    {
-        pausePanel.SetActive(true);
-        Time.timeScale = 0f;
-        isPaused = true;
-    }
-
+    // Metodo chiamato dal pulsante Resume nel menu
     public void Resume()
     {
-        pausePanel.SetActive(false);
-        Time.timeScale = 1f;
+        if (!isPaused) return; // sicurezza
+
         isPaused = false;
+
+        pausePanel.SetActive(false);
+        optionsPanel.SetActive(false);
+
+        if (pauseButton != null)
+            pauseButton.SetActive(true);
+
+        Time.timeScale = 1f;
     }
 
+    // Restart del livello
     public void Restart()
     {
         Time.timeScale = 1f;
+
+
         PlayerStats.Instance.ResetStats();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("SampleScene");
+
+        isPaused = false; // resetta lo stato
     }
 
+    // Apri pannello opzioni
     public void OpenOptions()
     {
         pausePanel.SetActive(false);
         optionsPanel.SetActive(true);
     }
 
+    // Chiudi pannello opzioni e ritorna pausa
     public void CloseOptions()
     {
         optionsPanel.SetActive(false);
         pausePanel.SetActive(true);
     }
 
+    // Torna al main menu
     public void LoadMainMenu()
     {
         Time.timeScale = 1f;
+
+
         SceneManager.LoadScene("MainMenu");
+
+        isPaused = false;
     }
 }
