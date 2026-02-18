@@ -413,9 +413,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cd758aa35c182a409582e99cabf1ad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MusicManager
-  menuMusic: {fileID: 8300000, guid: c3f7b48eed5ec834580077a3871c6ade, type: 3}
-  gameMusic: {fileID: 8300000, guid: c3f7b48eed5ec834580077a3871c6ade, type: 3}
-  bossMusic: {fileID: 8300000, guid: c3f7b48eed5ec834580077a3871c6ade, type: 3}
+  menuMusic: {fileID: 8300000, guid: c8d6436292726d546b04bd321b91b946, type: 3}
+  gameMusic: {fileID: 8300000, guid: 1913263acf7b50848990e4642242fbd1, type: 3}
+  bossMusic: {fileID: 8300000, guid: c6dc966942add25499af79d1eb25bf28, type: 3}
+  gameOverMusic: {fileID: 8300000, guid: 964a42d2bc754ac4297b0402a7bcb67c, type: 3}
+  victoryMusic: {fileID: 8300000, guid: 52c40f88fac51de4386a5c7d58dfed00, type: 3}
 --- !u!4 &469571685
 Transform:
   m_ObjectHideFlags: 0

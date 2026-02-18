@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MusicManager : MonoBehaviour
@@ -11,6 +11,8 @@ public class MusicManager : MonoBehaviour
     public AudioClip menuMusic;
     public AudioClip gameMusic;
     public AudioClip bossMusic;
+    public AudioClip gameOverMusic;
+    public AudioClip victoryMusic;
 
     void Awake()
     {
@@ -20,12 +22,22 @@ public class MusicManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
 
             audioSource = GetComponent<AudioSource>();
+
+            if (audioSource == null)
+                audioSource = gameObject.AddComponent<AudioSource>();
+
+            audioSource.playOnAwake = false;
+
+            // ✅ QUI carichiamo subito il volume salvato
+            float savedVolume = PlayerPrefs.GetFloat("MusicVolume", 0.5f);
+            audioSource.volume = savedVolume;
         }
         else
         {
             Destroy(gameObject);
         }
     }
+
 
     void OnEnable()
     {
@@ -41,33 +53,56 @@ public class MusicManager : MonoBehaviour
     {
         switch (scene.name)
         {
+            // 🎵 MENU GROUP
             case "MainMenu":
+            case "OptionsScene":
+            case "RecordsScene":
                 PlayMusic(menuMusic);
                 break;
 
-            case "GameScene":
+            // 🎮 GAME
+            case "SampleScene":
                 PlayMusic(gameMusic);
                 break;
 
-            case "BossScene":
+            // 👹 BOSS
+            case "BossFightScene":
                 PlayMusic(bossMusic);
+                break;
+
+            // 💀 GAME OVER
+            case "GameOverScene":
+                PlayMusic(gameOverMusic);
+                break;
+
+            // 🏆 VICTORY
+            case "VictoryScene":
+                PlayMusic(victoryMusic);
                 break;
         }
     }
 
     public void PlayMusic(AudioClip clip)
     {
-        if (audioSource.clip == clip) return;
+        if (clip == null) return;
+
+        if (audioSource.clip == clip)
+            return;
 
         audioSource.clip = clip;
-        audioSource.loop = true;
+
+        // SOLO GameOver non in loop
+        if (clip == gameOverMusic)
+            audioSource.loop = false;
+        else
+            audioSource.loop = true;
+
         audioSource.Play();
     }
 
+
     public void SetVolume(float value)
     {
-        if (audioSource != null)
-            audioSource.volume = value;
+        audioSource.volume = value;
     }
-
 }
