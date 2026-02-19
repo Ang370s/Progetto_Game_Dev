@@ -13,6 +13,11 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadScene("SampleScene");
     }
 
+    public void OpenRecords()
+    {
+        SceneManager.LoadScene("RecordsScene");
+    }
+
     public void OpenOptions()
     {
         SceneManager.LoadScene("OptionsScene");
@@ -20,7 +25,12 @@ public class MainMenuManager : MonoBehaviour
 
     public void QuitGame()
     {
+        Debug.Log("Exit pressed");
+
         Application.Quit();
-        Debug.Log("Quit Game"); // visibile in editor
+
+        #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+        #endif
     }
 }

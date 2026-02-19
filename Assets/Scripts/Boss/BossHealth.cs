@@ -20,6 +20,8 @@ public class BossHealth : MonoBehaviour
 
         currentHealth -= damage;
 
+        SFXManager.Instance.PlaySFX(SFXManager.Instance.damage);
+
         if (currentHealth <= 0)
         {
             Die();

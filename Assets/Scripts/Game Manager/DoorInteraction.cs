@@ -31,10 +31,12 @@ public class DoorInteraction : MonoBehaviour
                 PlayerStats.Instance.savedPotions = inv.potionCount;
 
             Debug.Log("Entrando nella BossFightScene...");
+            SFXManager.Instance.PlaySFX(SFXManager.Instance.door);
             SceneManager.LoadScene("BossFightScene");
         }
         else
         {
+            UIMessage.Instance.ShowMessage("Devi prima trovare la chiave!");
             Debug.Log("Non hai la chiave!");
         }
     }

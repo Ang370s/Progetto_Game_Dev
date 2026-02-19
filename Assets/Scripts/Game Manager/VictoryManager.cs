@@ -15,7 +15,7 @@ public class VictoryManager : MonoBehaviour
             int totale = PlayerStats.Instance.GetFinalScore();
 
             // 2. Scrive il testo a schermo
-            scoreDisplay.text = "PUNTEGGIO: " + totale.ToString();
+            scoreDisplay.text = totale.ToString();
 
             // 3. Nascondi la vecchia UI del dungeon (i contatori piccoli)
             Canvas oldUI = PlayerStats.Instance.GetComponentInChildren<Canvas>();
@@ -23,11 +23,14 @@ public class VictoryManager : MonoBehaviour
 
             Debug.Log("Punteggio caricato correttamente: " + totale);
             Debug.Log("Vittoria! Kill: " + PlayerStats.Instance.killCount + " Boss: " + PlayerStats.Instance.bossDefeated);
+
+            // 4. Salva il punteggio
+            ScoreManager.Instance.SaveNewScore(totale);
         }
         else
         {
             // Se arrivi qui senza passare dal gioco (es. lanci la scena da sola)
-            scoreDisplay.text = "PUNTEGGIO: 0";
+            scoreDisplay.text = "0";
             Debug.LogWarning("PlayerStats non trovato. Hai lanciato la scena direttamente?");
         }
     }

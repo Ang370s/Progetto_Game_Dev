@@ -16,6 +16,8 @@ public class EnemyCombat : MonoBehaviour
     {
         // Detect players within the attack range
         Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, playerLayer);
+        SFXManager.Instance.PlaySFX(SFXManager.Instance.sword);
+
 
         // If a player is hit, deal damage
         if (hits.Length > 0)

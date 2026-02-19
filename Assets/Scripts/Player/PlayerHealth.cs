@@ -78,7 +78,13 @@ public class PlayerHealth : MonoBehaviour
         if (amount < 0)
         {
             StartCoroutine(DamageFeedback()); // Avvia la coroutine per il feedback di danno
+            SFXManager.Instance.PlaySFX(SFXManager.Instance.damage);
         }
+        else
+        {
+            SFXManager.Instance.PlaySFX(SFXManager.Instance.heal);
+        }
+
     }
 
     // Coroutine per gestire il feedback di danno e l'invulnerabilit� temporanea

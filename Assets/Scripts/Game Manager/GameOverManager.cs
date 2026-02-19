@@ -11,13 +11,13 @@ public class GameOverManager : MonoBehaviour
         if (PlayerStats.Instance != null)
         {
             int totale = PlayerStats.Instance.GetFinalScore();
-            scoreDisplay.text = "PUNTEGGIO: " + totale.ToString();
+            scoreDisplay.text = totale.ToString();
 
             Debug.Log("Game Over. Score: " + totale);
         }
         else
         {
-            scoreDisplay.text = "PUNTEGGIO: 0";
+            scoreDisplay.text = "0";
         }
     }
 

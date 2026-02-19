@@ -11,7 +11,7 @@ public class KillCounterUI : MonoBehaviour
          UpdateDisplay();
      }*/
 
-    /*void Start()
+    void Start()
     {
         if (playerStats == null)
             playerStats = PlayerStats.Instance;
@@ -19,10 +19,12 @@ public class KillCounterUI : MonoBehaviour
 
     void Update()
     {
-        killText.text = playerStats.killCount.ToString();
-    }*/
+        if (PlayerStats.Instance == null) return;
 
-    void Start()
+        killText.text = PlayerStats.Instance.killCount.ToString();
+    }
+
+    /*void Start()
     {
         if (playerStats == null)
             playerStats = PlayerStats.Instance;
@@ -35,6 +37,6 @@ public class KillCounterUI : MonoBehaviour
         if (playerStats == null) return;
 
         killText.text = playerStats.killCount.ToString();
-    }
+    }*/
 
 }
