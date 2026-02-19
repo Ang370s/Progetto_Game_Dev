@@ -44,6 +44,7 @@ public class BossCombat : MonoBehaviour
         lastAttackTime = Time.time;
         controller.isBusy = true; // Blocca il movimento
         controller.ChangeState(BossState.Attacking);
+        SFXManager.Instance.PlaySFX(SFXManager.Instance.sword);
     }
 
     // 1° ANIMATION EVENT: Da chiamare nel frame dell'impatto visivo

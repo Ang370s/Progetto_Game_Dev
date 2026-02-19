@@ -46,6 +46,7 @@ public class Chest : MonoBehaviour
 
         // Drop oggetti comuni
         DropRandomObject();
+        SFXManager.Instance.PlaySFX(SFXManager.Instance.chestBreak);
 
         Destroy(gameObject);
     }

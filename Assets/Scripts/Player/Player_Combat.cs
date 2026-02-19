@@ -37,6 +37,8 @@ public class Player_Combat : MonoBehaviour
         {
             anim.SetBool("isAttacking", true);
             timer = cooldown;
+            SFXManager.Instance.PlaySFX(SFXManager.Instance.sword);
+
         }
     }
 

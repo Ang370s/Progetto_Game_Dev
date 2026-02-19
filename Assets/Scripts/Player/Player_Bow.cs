@@ -11,20 +11,6 @@ public class Player_Bow : MonoBehaviour
     public float shootCooldown = 1.2f; // Cooldown time between shots in seconds
     private float shootTimer; // Timer to track the cooldown between shots
 
-    // Update is called once per frame. Non deve leggere da input !!!!!!!!!!!!!
-    /*void Update()
-    {
-        shootTimer -= Time.deltaTime; // Decrease the shoot timer by the time elapsed since the last frame
-
-        HandleAiming(); // Call the method to handle aiming input
-
-        // Check if the right mouse button is pressed and the shoot timer has reached 0 or less, allowing the player to shoot
-        if (Input.GetMouseButtonDown(1) && shootTimer <= 0)
-        {
-            Shoot(); // Call the Shoot method to check for shooting input
-        }
-    }*/
-
     // Versione senza input, da chiamare da PlayerWeaponController
     void Update()
     {
@@ -38,6 +24,7 @@ public class Player_Bow : MonoBehaviour
             return;
 
         anim.SetBool("isShooting", true);
+        SFXManager.Instance.PlaySFX(SFXManager.Instance.bow);
     }
 
     // Method to handle the shooting action

@@ -12,6 +12,7 @@ public class PotionPickup : MonoBehaviour
 
             if (pickedUp)
             {
+                SFXManager.Instance.PlaySFX(SFXManager.Instance.gem);
                 Destroy(gameObject);
             }
         }

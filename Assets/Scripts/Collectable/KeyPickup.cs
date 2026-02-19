@@ -11,6 +11,7 @@ public class KeyPickup : MonoBehaviour
             return;
 
         PlayerStats.Instance.GetKey();
+        SFXManager.Instance.PlaySFX(SFXManager.Instance.gem);
         Destroy(gameObject);
     }
 }

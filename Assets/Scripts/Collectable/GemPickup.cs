@@ -21,6 +21,7 @@ public class GemPickup : MonoBehaviour
             return;
 
         PlayerStats.Instance.AddGem(gemType, value);
+        SFXManager.Instance.PlaySFX(SFXManager.Instance.gem);
         Destroy(gameObject);
     }
 }

@@ -33,6 +33,11 @@ public class Enemy_Health : MonoBehaviour
 
         currentHealth += amount;
 
+        if(amount < 0)
+        {
+            SFXManager.Instance.PlaySFX(SFXManager.Instance.damage);
+        }
+
         if (currentHealth <= 0)
         {
             Die();
