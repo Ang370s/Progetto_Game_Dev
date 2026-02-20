@@ -23,6 +23,8 @@ public class GameOverManager : MonoBehaviour
 
     public void Retry()
     {
+        Chest.ResetChestStats();
+
         if (PlayerStats.Instance != null)
         {
             Destroy(PlayerStats.Instance.gameObject);
