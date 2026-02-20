@@ -1,5 +1,7 @@
 # 🗝️ Dungeon Escape
 
+Sviluppato da: Angelo Lo Chiatto, Alessandro Papa e Ugo Perrella
+
 Un action dungeon crawler 2D sviluppato in Unity.
 
 Esplora il dungeon, raccogli gemme, sconfiggi nemici e affronta il Boss finale per ottenere la vittoria.
