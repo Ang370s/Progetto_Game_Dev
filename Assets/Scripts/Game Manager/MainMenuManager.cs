@@ -5,6 +5,8 @@ public class MainMenuManager : MonoBehaviour
 {
     public void PlayGame()
     {
+        Chest.ResetChestStats();
+
         if (PlayerStats.Instance != null)
         {
             PlayerStats.Instance.ResetStats();

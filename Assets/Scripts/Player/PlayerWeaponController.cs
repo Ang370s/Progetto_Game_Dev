@@ -1,15 +1,12 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public enum WeaponType
-{
-    Sword,
-    Bow
-}
+
 
 public class PlayerWeaponController : MonoBehaviour
 {
-    public WeaponType currentWeapon = WeaponType.Sword;
 
+    [Header("References")]
     public Player_Combat sword;
     public Player_Bow bow;
     public PlayerInventory inventory;
@@ -19,53 +16,55 @@ public class PlayerWeaponController : MonoBehaviour
     {
         if (activeInventory == null)
             activeInventory = FindObjectOfType<ActiveInventory>();
-
-        EquipSword(); // default
     }
 
     private void Update()
     {
+#if !UNITY_ANDROID && !UNITY_IOS
+        HandlePCInput();
+#endif
+    }
+
+    // Gestisce l'input del mouse per attaccare o usare pozioni
+    private void HandlePCInput()
+    {
         int activeSlot = activeInventory.GetActiveSlot();
-
-        // Switch weapon SOLO se slot 0 o 1
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            EquipSword();
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            EquipBow();
 
         // Click sinistro
         if (Input.GetMouseButtonDown(0))
         {
-            // SLOT 0 -> SPADA
-            if (activeSlot == 0)
-            {
-                sword.Attack();
-            }
-            // SLOT 1 -> ARCO
-            else if (activeSlot == 1)
-            {
-                bow.StartShooting();
-            }
-            // SLOT 2 -> POZIONE
-            else if (activeSlot == 2)
-            {
-                inventory.UsePotion();
-            }
+            // Evita attacco se clicchi sulla UI
+            if (EventSystem.current != null &&
+                EventSystem.current.IsPointerOverGameObject())
+                return;
+
+            UseActiveSlot(activeSlot);
         }
     }
 
-    void EquipSword()
+    // Input da mobile
+    public void OnAttackButton()
     {
-        currentWeapon = WeaponType.Sword;
-        sword.enabled = true;
-        bow.enabled = false;
+
+        int activeSlot = activeInventory.GetActiveSlot();
+        UseActiveSlot(activeSlot);
     }
 
-    void EquipBow()
+    private void UseActiveSlot(int activeSlot)
     {
-        currentWeapon = WeaponType.Bow;
-        sword.enabled = false;
-        bow.enabled = true;
+        switch (activeSlot)
+        {
+            case 0:
+                sword.Attack();
+                break;
+
+            case 1:
+                bow.StartShooting();
+                break;
+
+            case 2:
+                inventory.UsePotion();
+                break;
+        }
     }
 }

@@ -6,16 +6,18 @@ public class Player_Bow : MonoBehaviour
     public GameObject arrowPrefab; // Prefab of the arrow to be instantiated when shooting
     public Animator anim; // Reference to the Animator component
 
-    private Vector2 aimDirection = Vector2.right; // Direction in which the player is aiming
+    //private Vector2 aimDirection = Vector2.right; // Direction in which the player is aiming
 
     public float shootCooldown = 1.2f; // Cooldown time between shots in seconds
     private float shootTimer; // Timer to track the cooldown between shots
+
+    public PlayerMovement playerMovement; // Reference to the PlayerMovement script to access the last movement direction
 
     // Versione senza input, da chiamare da PlayerWeaponController
     void Update()
     {
         shootTimer -= Time.deltaTime;
-        HandleAiming();
+        //HandleAiming();
     }
 
     public void StartShooting()
@@ -34,6 +36,9 @@ public class Player_Bow : MonoBehaviour
         if (shootTimer > 0)
             return;
 
+        if (playerMovement.LastMoveDirection == Vector2.zero)
+            return;
+
         // Instantiate a new arrow at the launch point with no rotation and get the Arrow component from it
         Arrow arrow = Instantiate(
             arrowPrefab,
@@ -41,7 +46,10 @@ public class Player_Bow : MonoBehaviour
             Quaternion.identity
         ).GetComponent<Arrow>();
 
-        arrow.direction = aimDirection;
+        //arrow.direction = aimDirection;
+
+        arrow.direction = playerMovement.LastMoveDirection;
+
         shootTimer = shootCooldown;
     }
 
@@ -50,7 +58,7 @@ public class Player_Bow : MonoBehaviour
         anim.SetBool("isShooting", false);
     }
 
-
+    /*
     public void HandleAiming()
     {
         float horizontal = Input.GetAxisRaw("Horizontal"); // Get horizontal input
@@ -60,6 +68,6 @@ public class Player_Bow : MonoBehaviour
         {
             aimDirection = new Vector2(horizontal, vertical).normalized; // Update the aim direction based on input and normalize it
         }
-    }
+    }*/
 
 }

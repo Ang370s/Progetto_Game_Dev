@@ -15,14 +15,32 @@ public class PlayerMovement : MonoBehaviour
 
     public Player_Combat player_Combat; // Reference to the Player_Combat script
 
+    public SimpleJoystick joystick; // Reference to the SimpleJoystick script
+
+    public Vector2 LastMoveDirection { get; private set; } // Property to store the last movement direction of the player
+
     // Facing Update is called 50x frame
     void FixedUpdate()
     {
         // Check if the player is not currently being knocked back
         if (isKnockedBack == false)
         {
-            float horizontal = Input.GetAxis("Horizontal"); // Get horizontal input
-            float vertical = Input.GetAxis("Vertical"); // Get vertical input
+
+            float horizontal = 0f;
+            float vertical = 0f;
+
+            if (joystick != null)
+            {
+                horizontal = joystick.Horizontal();
+                vertical = joystick.Vertical();
+            }
+
+            // Se il joystick non sta dando input, usa tastiera
+            if (horizontal == 0f && vertical == 0f)
+            {
+                horizontal = Input.GetAxis("Horizontal");
+                vertical = Input.GetAxis("Vertical");
+            }
 
             // 1. Crea un vettore con i due input
             Vector2 moveInput = new Vector2(horizontal, vertical);
@@ -31,6 +49,11 @@ public class PlayerMovement : MonoBehaviour
             // ClampMagnitude � ideale perch� mantiene la sensibilit� del joystick (se lo usi)
             // ma impedisce di superare la velocit� massima in diagonale.
             moveInput = Vector2.ClampMagnitude(moveInput, 1f);
+
+            if (moveInput != Vector2.zero)
+            {
+                LastMoveDirection = moveInput.normalized;
+            }
 
             // Gestione del flip del personaggio
             if (horizontal > 0 && transform.localScale.x < 0 ||

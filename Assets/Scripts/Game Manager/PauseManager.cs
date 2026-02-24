@@ -58,6 +58,7 @@ public class PauseManager : MonoBehaviour
 
 
         PlayerStats.Instance.ResetStats();
+        Chest.ResetChestStats();
         SceneManager.LoadScene("SampleScene");
 
         isPaused = false; // resetta lo stato
