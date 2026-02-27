@@ -40,6 +40,12 @@ public class DoorInteraction : MonoBehaviour
             TryEnterDoor();
         }
 #endif
+
+        // Il tasto del gamepad è supportato su tutte le piattaforme, quindi lo gestiamo sempre
+        if (Input.GetKeyDown(KeyCode.JoystickButton1))
+        {
+            TryEnterDoor();
+        }
     }
 
     public void TryEnterDoor()

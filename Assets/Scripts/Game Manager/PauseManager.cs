@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class PauseManager : MonoBehaviour
 {
@@ -10,11 +11,37 @@ public class PauseManager : MonoBehaviour
     public GameObject optionsPanel;
     public GameObject pauseButton; // il quadratino
 
+    [Header("Gamepad Selection")]
+    public GameObject firstPauseButton;
+    public GameObject firstOptionsButton;
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        bool startPressed = Input.GetKeyDown(KeyCode.JoystickButton7) ||
+                        Input.GetKeyDown(KeyCode.JoystickButton6) ||
+                        Input.GetKeyDown(KeyCode.JoystickButton10) ||
+                        Input.GetKeyDown(KeyCode.Escape); // Mantieni Escape per i test su PC
+
+        if (startPressed)
         {
-            TogglePause();
+            if (optionsPanel.activeSelf)
+            {
+                CloseOptions(); // Se sei nelle opzioni, torna al menu pausa
+            }
+            else if (pausePanel.activeSelf)
+            {
+                Resume(); // Se sei in pausa, torna al gioco
+            }
+            else
+            {
+                TogglePause(); // Se sei nel gioco, apri la pausa
+            }
+        }
+
+        // TASTO B (JoystickButton1) per tornare indietro quando sei nelle OPZIONI
+        if (optionsPanel.activeSelf && Input.GetKeyDown(KeyCode.JoystickButton1))
+        {
+            CloseOptions();
         }
     }
 
@@ -25,7 +52,6 @@ public class PauseManager : MonoBehaviour
 
         // Pannelli
         pausePanel.SetActive(isPaused);
-        optionsPanel.SetActive(false); // chiudi options se aperto
 
         // Quadratino
         if (pauseButton != null)
@@ -33,6 +59,13 @@ public class PauseManager : MonoBehaviour
 
         // Blocca o sblocca il gioco
         Time.timeScale = isPaused ? 0f : 1f;
+
+        if (isPaused)
+        {
+            // FORZIAMO la selezione del primo tasto, altrimenti le freccette non sanno dove iniziare
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(firstPauseButton);
+        }
     }
 
     // Metodo chiamato dal pulsante Resume nel menu
@@ -69,13 +102,30 @@ public class PauseManager : MonoBehaviour
     {
         pausePanel.SetActive(false);
         optionsPanel.SetActive(true);
+
+        // Seleziona il primo pulsante delle opzioni per il gamepad
+        SetFirstSelection(firstOptionsButton);
+
+        EventSystem.current.SetSelectedGameObject(firstOptionsButton);
     }
+
 
     // Chiudi pannello opzioni e ritorna pausa
     public void CloseOptions()
     {
         optionsPanel.SetActive(false);
         pausePanel.SetActive(true);
+
+        // Torna a selezionare un bottone nel menu pausa
+        SetFirstSelection(firstPauseButton);
+    }
+
+    // Funzione di supporto per pulire e settare la selezione
+    private void SetFirstSelection(GameObject target)
+    {
+        if (target == null) return;
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(target);
     }
 
     // Torna al main menu
