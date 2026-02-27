@@ -6,6 +6,15 @@ public class RecordsMenu : MonoBehaviour
 {
     public TextMeshProUGUI recordsText;
 
+    void Update()
+    {
+        // Se premi B (Button 1) nel menu dei record, torni al menu principale
+        if (Input.GetKeyDown(KeyCode.JoystickButton1))
+        {
+            BackToMenu();
+        }
+    }
+
     void Start()
     {
         ShowRecords();

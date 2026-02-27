@@ -8,6 +8,7 @@ TagManager:
   - PCCommands
   - MobileCommands
   - ConsoleCommands
+  - CameraTarget
   layers:
   - Default
   - TransparentFX

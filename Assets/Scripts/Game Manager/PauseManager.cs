@@ -39,9 +39,13 @@ public class PauseManager : MonoBehaviour
         }
 
         // TASTO B (JoystickButton1) per tornare indietro quando sei nelle OPZIONI
-        if (optionsPanel.activeSelf && Input.GetKeyDown(KeyCode.JoystickButton1))
+        if (Input.GetKeyDown(KeyCode.JoystickButton1))
         {
-            CloseOptions();
+            if (pausePanel.activeSelf)
+                Resume(); // Se sei in pausa, torna al gioco
+        
+            else if (optionsPanel.activeSelf)
+                CloseOptions(); // Se sei nelle opzioni, torna al menu pausa
         }
     }
 

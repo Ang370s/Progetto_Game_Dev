@@ -2048,6 +2048,7 @@ GameObject:
   - component: {fileID: 226180629}
   - component: {fileID: 226180628}
   - component: {fileID: 226180627}
+  - component: {fileID: 226180631}
   m_Layer: 0
   m_Name: CinemachineCameraFollow
   m_TagString: Untagged
@@ -2064,7 +2065,7 @@ Transform:
   m_GameObject: {fileID: 226180625}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -38.83956, y: -9.9641905, z: -10}
+  m_LocalPosition: {x: 1.00044, y: 0.84581, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2161,6 +2162,23 @@ MonoBehaviour:
       BarrelClipping: 0.25
       Anamorphism: 0
   BlendHint: 0
+--- !u!114 &226180631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226180625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineBasicMultiChannelPerlin
+  NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  PivotOffset: {x: 0, y: 0, z: 0}
+  AmplitudeGain: 0
+  FrequencyGain: 0
+  m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &245197109
 GameObject:
   m_ObjectHideFlags: 0
@@ -3633,7 +3651,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -38.83956, y: -9.9641905, z: -10}
+  m_LocalPosition: {x: 1.00044, y: 0.84581, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4366,6 +4384,10 @@ PrefabInstance:
       propertyPath: heartBar
       value: 
       objectReference: {fileID: 581418625}
+    - target: {fileID: 3249457666097124504, guid: 3f263642d11ad9a4b902fb4bd530dc5d, type: 3}
+      propertyPath: cameraShaker
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3854780325025219914, guid: 3f263642d11ad9a4b902fb4bd530dc5d, type: 3}
       propertyPath: m_Name
       value: Player
@@ -4380,11 +4402,11 @@ PrefabInstance:
       objectReference: {fileID: 1151796043}
     - target: {fileID: 6874141350191956255, guid: 3f263642d11ad9a4b902fb4bd530dc5d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -38.84
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6874141350191956255, guid: 3f263642d11ad9a4b902fb4bd530dc5d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.81
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6874141350191956255, guid: 3f263642d11ad9a4b902fb4bd530dc5d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -206549,8 +206571,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 519420032}
   - {fileID: 226180626}
+  - {fileID: 519420032}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2069743630

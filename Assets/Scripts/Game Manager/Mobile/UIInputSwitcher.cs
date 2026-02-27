@@ -11,12 +11,11 @@ public class UIInputSwitcher : MonoBehaviour
     private GameObject lastSelected;
     private bool isUsingGamepad = true;
 
-    [Header("Input Prompts UI (Automatic Search)")]
     private GameObject pcPanel;
     private GameObject consolePanel;
     private GameObject mobilePanel;
 
-    private void Start()
+    /*private void Start()
     {
         // Rileviamo se siamo su Android per mostrare i comandi R36S di default
 #if UNITY_ANDROID
@@ -24,7 +23,7 @@ public class UIInputSwitcher : MonoBehaviour
 #else
         SwitchVisuals(true);  // Parte in modalità PC
 #endif
-    }
+    }*/
 
     private void Awake()
     {
@@ -53,6 +52,55 @@ public class UIInputSwitcher : MonoBehaviour
 
         StartCoroutine(SetInitialSelection());
     }
+
+    // Metodo chiamato dal Linker per collegare i pannelli della scena
+    public void RegisterPanels(GameObject pc, GameObject console, GameObject mobile)
+    {
+        pcPanel = pc;
+        consolePanel = console;
+        mobilePanel = mobile;
+
+        /*// Appena registrati, aggiorna la visuale in base alla modalità attuale
+        SwitchVisuals(!isUsingGamepad);*/
+
+        // Appena i pannelli esistono, decidiamo QUALE mostrare per sempre in questa scena
+        FixVisualsByPlatform();
+    }
+
+    private void FixVisualsByPlatform()
+    {
+        if (pcPanel == null && consolePanel == null && mobilePanel == null) return;
+
+        // 1. Spegniamo tutto per sicurezza
+        pcPanel?.SetActive(false);
+        consolePanel?.SetActive(false);
+        mobilePanel?.SetActive(false);
+
+        // 2. Accendiamo SOLO quello della piattaforma corrente
+#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
+        if (Input.GetJoystickNames().Length > 0)
+        {
+            // R36S o Gamepad su Mobile
+            consolePanel?.SetActive(true);
+        }
+        else
+        {
+            // Smartphone Touch
+            mobilePanel?.SetActive(true);
+        }
+#else
+        if (Input.GetJoystickNames().Length > 0)
+        {
+            // PC con controller collegato
+            consolePanel?.SetActive(true);
+        }
+        else
+        {
+            // PC puro (Mouse e Tastiera)
+            pcPanel?.SetActive(true);
+        }
+#endif
+    }
     private IEnumerator SetInitialSelection()
     {
         yield return new WaitForEndOfFrame();
@@ -61,7 +109,7 @@ public class UIInputSwitcher : MonoBehaviour
             lastSelected = EventSystem.current.firstSelectedGameObject;
             EventSystem.current.SetSelectedGameObject(lastSelected);
             isUsingGamepad = true;
-            SwitchVisuals(false);
+            //SwitchVisuals(false);
         }
     }
 
@@ -80,7 +128,7 @@ public class UIInputSwitcher : MonoBehaviour
 
                 EventSystem.current.SetSelectedGameObject(null);
                 isUsingGamepad = false;
-                SwitchVisuals(true);
+                //SwitchVisuals(true);
             }
         }
 
@@ -93,7 +141,7 @@ public class UIInputSwitcher : MonoBehaviour
                 if (!isUsingGamepad || EventSystem.current.currentSelectedGameObject == null)
                 {
                     isUsingGamepad = true;
-                    SwitchVisuals(false);
+                    /*SwitchVisuals(false);
                     // LOGICA DI RECUPERO: Se non c'è nulla di selezionato, forza l'ultimo o il primo
                     if (EventSystem.current.currentSelectedGameObject == null)
                     {
@@ -106,23 +154,17 @@ public class UIInputSwitcher : MonoBehaviour
                         }
 
                         EventSystem.current.SetSelectedGameObject(toSelect);
-                    }
+                    }*/
+                    GameObject toSelect = (lastSelected != null) ? lastSelected : FindFirstActiveButton();
+                    EventSystem.current.SetSelectedGameObject(toSelect);
                 }
             }
         }
     }
 
-    // Metodo chiamato dal Linker per collegare i pannelli della scena
-    public void RegisterPanels(GameObject pc, GameObject console, GameObject mobile)
-    {
-        pcPanel = pc;
-        consolePanel = console;
-        mobilePanel = mobile;
+    
 
-        // Appena registrati, aggiorna la visuale in base alla modalità attuale
-        SwitchVisuals(!isUsingGamepad);
-    }
-
+    /*
     // Funzione per cambiare i riquadri visivi tra PC, Console e Mobile
     private void SwitchVisuals(bool isPC)
     {
@@ -162,7 +204,7 @@ public class UIInputSwitcher : MonoBehaviour
             if (mobilePanel != null) mobilePanel.SetActive(false);
 #endif
         }
-    }
+    }*/
 
     public bool IsUsingGamepad() { return isUsingGamepad; }
 

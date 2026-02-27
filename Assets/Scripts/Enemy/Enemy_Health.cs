@@ -36,15 +36,14 @@ public class Enemy_Health : MonoBehaviour
         if(amount < 0)
         {
             SFXManager.Instance.PlaySFX(SFXManager.Instance.damage);
+
+            StartCoroutine(Invulnerability());
+
         }
 
         if (currentHealth <= 0)
         {
             Die();
-        }
-        else
-        {
-            StartCoroutine(Invulnerability());
         }
     }
 

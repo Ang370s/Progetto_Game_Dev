@@ -77,7 +77,7 @@ public class PlayerHealth : MonoBehaviour
         // Avvia il feedback di danno solo se l'ammontare � negativo (danno subito)
         if (amount < 0)
         {
-            StartCoroutine(DamageFeedback()); // Avvia la coroutine per il feedback di danno
+            StartCoroutine(DamageFeedback());
             SFXManager.Instance.PlaySFX(SFXManager.Instance.damage);
         }
         else
